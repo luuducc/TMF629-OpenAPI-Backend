@@ -1,0 +1,5 @@
+spring.application.name=TMF629
+# connect db
+spring.data.mongodb.host=
+spring.data.mongodb.port=
+spring.data.mongodb.database=
