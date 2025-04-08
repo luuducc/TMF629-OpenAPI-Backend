@@ -7,5 +7,5 @@ Before setting up and running this project, ensure you have the following instal
 - Java Development Kit (JDK) 17 or higher
 - MongoDB database
 ## Configurations
-Copy application.properties.sample as application.properties in the src folder and update it with your MongoDB configuration.
+Copy application.properties.sample as application.properties in the src folder and update it with your MongoDB configuration. <br>
 Then start the server.
