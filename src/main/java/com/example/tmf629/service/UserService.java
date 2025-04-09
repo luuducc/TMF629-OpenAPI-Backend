@@ -1,5 +1,6 @@
 package com.example.tmf629.service;
 
+import com.example.tmf629.exception.EmailAlreadyUsedException;
 import com.example.tmf629.model.User;
 import com.example.tmf629.respository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,28 +15,36 @@ public class UserService {
     private UserRepository userRepository;
 
     // Create
-    public User createUser(User user) {
-        return userRepository.save(user);
+    public void createUser(User user) {
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new EmailAlreadyUsedException(
+                    "Email " + user.getEmail() + " is already taken"
+            );
+        }
+         userRepository.save(user);
     }
 
-    // Read all
+    // Get all
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    // Read by id
+    // Find by id
     public Optional<User> getUserById(String id) {
-        return userRepository.findById(id);
+        User user = userRepository.findById(id);
+        if (user == null) {
+            return Optional.empty();
+        }
+        return Optional.of(userRepository.findById(id));
     }
 
-    // Update
-    public User updateUser(String id, User user) {
-        user.setId(id);
-        return userRepository.save(user);
+    // Update by id
+    public User updateUserById(String id, User user) {
+        return userRepository.updateById(id, user);
     }
 
-    // Delete
-    public void deleteUser(String id) {
+    // Delete by id
+    public void deleteUserById(String id) {
         userRepository.deleteById(id);
     }
 }

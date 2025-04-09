@@ -1,8 +1,14 @@
 package com.example.tmf629.respository;
 
 import com.example.tmf629.model.User;
-import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface UserRepository extends MongoRepository<User, String> {
-    User findByName(String name);
+import java.util.List;
+
+public interface UserRepository {
+    void save(User user);
+    User findById(String id);
+    List<User> findAll();
+    User updateById(String id, User user);
+    void deleteById(String id);
+    boolean existsByEmail(String email);
 }

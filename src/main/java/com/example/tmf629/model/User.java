@@ -3,43 +3,45 @@ package com.example.tmf629.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("users")
+@Document(collection = "users")
 public class User {
     @Id
     private String id;  // MongoDB document ID
-
+    private String email;
     private String name;
-    private int age;
 
-    // Constructors, Getters, and Setters
+    public String getPassword() {
+        return password;
+    }
+
+    private String password;
+
     public User() {}
 
-    public User(String name, int age) {
+    public User(String name, String email,String password) {
         this.name = name;
-        this.age = age;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
     }
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getEmail() {
+        return email;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
+    public void setId(String id) {
+        this.id = id;
     }
 }
