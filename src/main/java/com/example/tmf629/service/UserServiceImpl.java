@@ -1,7 +1,11 @@
 package com.example.tmf629.service;
 
+import com.example.tmf629.dto.CreateUserDTO;
+import com.example.tmf629.dto.UserDTO;
 import com.example.tmf629.exception.EmailAlreadyUsedException;
 import com.example.tmf629.exception.IDNotFoundException;
+import com.example.tmf629.mapper.CreateUserMapper;
+import com.example.tmf629.mapper.UserMapper;
 import com.example.tmf629.model.User;
 import com.example.tmf629.respository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +20,14 @@ public class UserServiceImpl implements UserService {
 
     // Create
     @Override
-    public void createUser(User user) {
-        if (userRepository.existsByEmail(user.getEmail())) {
+    public UserDTO createUser(CreateUserDTO dto) {
+        if (userRepository.existsByEmail(dto.email())) {
             throw new EmailAlreadyUsedException(
-                    "Email " + user.getEmail() + " is already taken"
+                    "Email " + dto.email() + " is already taken"
             );
         }
-         userRepository.save(user);
+        User createdUser = userRepository.save(CreateUserMapper.toEntity(dto));
+        return UserMapper.toDTO(createdUser);
     }
 
     // Get all

@@ -5,7 +5,7 @@ import com.example.tmf629.model.User;
 import java.util.List;
 
 public interface UserRepository {
-    void save(User user);
+    User save(User user);
     User findById(String id);
     List<User> findAll();
     User updateById(String id, User user);

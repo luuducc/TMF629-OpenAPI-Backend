@@ -2,6 +2,7 @@ package com.example.tmf629.controller;
 
 import com.example.tmf629.dto.CreateUserDTO;
 import com.example.tmf629.dto.UserDTO;
+import com.example.tmf629.exception.InvalidInputException;
 import com.example.tmf629.mapper.UserMapper;
 import com.example.tmf629.model.User;
 import com.example.tmf629.service.UserServiceImpl;
@@ -19,16 +20,12 @@ public class UserControllerImpl implements UserController {
 
     @Override
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody CreateUserDTO dto) {
-        Map<String, String> response = new HashMap<>();
+    public ResponseEntity<UserDTO> createUser(@RequestBody CreateUserDTO dto) {
         if (!dto.isValid()) {
-            response.put("message", "Invalid email or password");
-            return ResponseEntity.badRequest().body(response);
+            throw new InvalidInputException("Email or password is invalid");
         }
-        User newUser = new User(dto.getName(), dto.getEmail(), dto.getPassword());
-        userService.createUser(newUser);
-        response.put("message", "User created");
-        return ResponseEntity.ok(response);
+        UserDTO createdUser = userService.createUser(dto);
+        return ResponseEntity.ok(createdUser);
     }
 
     // Get all user

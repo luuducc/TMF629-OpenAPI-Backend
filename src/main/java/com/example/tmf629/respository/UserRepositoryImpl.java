@@ -16,9 +16,9 @@ public class UserRepositoryImpl implements UserRepository {
     @Autowired
     private MongoTemplate mongoTemplate;
     @Override
-    public void save(User user) {
+    public User save(User user) {
         System.out.println(user.getClass().getName());
-        mongoTemplate.insert(user);
+        return mongoTemplate.insert(user);
     }
 
     @Override

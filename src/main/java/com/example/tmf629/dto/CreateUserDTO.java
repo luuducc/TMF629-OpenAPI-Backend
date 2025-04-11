@@ -1,27 +1,6 @@
 package com.example.tmf629.dto;
 
-public class CreateUserDTO {
-    private String name;
-    private String email;
-    private String password;
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public CreateUserDTO(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
+public record CreateUserDTO(String name, String email, String password) {
 
     // basic validation
     private boolean isValidEmail() {
