@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class MongoDBRepositoryImpl implements UserRepository {
+public class UserRepositoryImpl implements UserRepository {
     @Autowired
     private MongoTemplate mongoTemplate;
     @Override
@@ -38,17 +38,16 @@ public class MongoDBRepositoryImpl implements UserRepository {
 
         if (user.getName() != null) update.set("name", user.getName());
         if (user.getEmail() != null) update.set("email", user.getEmail());
+        System.out.println("email: " + user.getEmail());
+        System.out.println("name: " + user.getName());
 
         UpdateResult result = mongoTemplate.updateFirst(query, update, User.class);
-        if (result.getMatchedCount() == 0) {
-            System.out.println("No document updated");
-        } else if (result.getModifiedCount() == 0) {
-            System.out.println("Document is not modified");
-        } else {
-            System.out.println("Document updated");
-        }
 
-        return null;
+        System.out.println("result: " + result.getModifiedCount());
+        System.out.println("result: " + result.getMatchedCount());
+
+        // return updated User
+        return mongoTemplate.findById(id, User.class);
     }
 
     @Override
@@ -60,6 +59,12 @@ public class MongoDBRepositoryImpl implements UserRepository {
     @Override
     public boolean existsByEmail(String email) {
         Query query = new Query(Criteria.where("email").is(email));
+        return mongoTemplate.exists(query, User.class);
+    }
+
+    @Override
+    public boolean existsById(String id) {
+        Query query = new Query(Criteria.where("id").is(id));
         return mongoTemplate.exists(query, User.class);
     }
 }

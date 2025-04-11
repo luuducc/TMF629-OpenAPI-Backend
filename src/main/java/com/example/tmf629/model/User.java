@@ -9,24 +9,21 @@ public class User {
     private String id;  // MongoDB document ID
     private String email;
     private String name;
-
-    public String getPassword() {
-        return password;
-    }
-
     private String password;
 
     public User() {}
 
-    public User(String name, String email,String password) {
+    public User(String id, String name, String email,String password) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
-    public User(String name, String email) {
+    public User(String name, String email,String password) {
         this.name = name;
         this.email = email;
+        this.password = password;
     }
 
     public String getId() {
@@ -39,6 +36,10 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setId(String id) {

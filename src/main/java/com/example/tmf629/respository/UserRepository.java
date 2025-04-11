@@ -11,4 +11,5 @@ public interface UserRepository {
     User updateById(String id, User user);
     void deleteById(String id);
     boolean existsByEmail(String email);
+    boolean existsById(String id);
 }

@@ -5,9 +5,9 @@ import com.example.tmf629.model.User;
 
 public class UserMapper {
     public static UserDTO toDTO(User user) {
-        return new UserDTO(user.getName(), user.getEmail());
+        return new UserDTO(user.getId(), user.getName(), user.getEmail());
     }
     public static User toEntity(UserDTO dto) {
-        return new User(dto.getName(), dto.getEmail());
+        return new User(dto.id(), dto.name(), dto.email(), "");
     }
 }
