@@ -67,7 +67,7 @@ public class UserControllerImpl implements UserController {
     // Delete user by ID
     @Override
     @DeleteMapping("/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable String id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
         userService.deleteUserById(id);
         return ResponseEntity.noContent().build();
     }

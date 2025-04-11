@@ -12,5 +12,5 @@ public interface UserController {
     ResponseEntity<List<UserDTO>> getUsers();
     ResponseEntity<UserDTO> getUser(String id);
     ResponseEntity<?> updateUser(String id, UserDTO dto);
-    ResponseEntity<User> deleteUser(String id);
+    ResponseEntity<Void> deleteUser(String id);
 }
