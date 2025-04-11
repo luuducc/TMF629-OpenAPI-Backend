@@ -38,12 +38,12 @@ public class UserServiceImpl implements UserService {
 
     // Find by id
     @Override
-    public User getUserById(String id) {
+    public UserDTO getUserById(String id) {
         User user = userRepository.findById(id);
         if (user == null) {
             throw new IDNotFoundException("ID " + id + " not found");
         }
-        return user;
+        return UserMapper.toDTO(user);
     }
 
     // Update by id

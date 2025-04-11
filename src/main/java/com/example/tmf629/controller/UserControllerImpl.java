@@ -43,8 +43,8 @@ public class UserControllerImpl implements UserController {
     @Override
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable String id) {
-        User user = userService.getUserById(id);
-        return ResponseEntity.ok(UserMapper.toDTO(user));
+        UserDTO user = userService.getUserById(id);
+        return ResponseEntity.ok(user);
     }
 
     // Update user by ID
