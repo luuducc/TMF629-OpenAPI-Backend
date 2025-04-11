@@ -10,6 +10,6 @@ public interface UserController {
     ResponseEntity<UserDTO> createUser(CreateUserDTO dto);
     ResponseEntity<List<UserDTO>> getUsers();
     ResponseEntity<UserDTO> getUser(String id);
-    ResponseEntity<?> updateUser(String id, UserDTO dto);
+    ResponseEntity<UserDTO> updateUser(String id, UserDTO dto);
     ResponseEntity<Void> deleteUser(String id);
 }

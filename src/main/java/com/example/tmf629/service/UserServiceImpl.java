@@ -48,16 +48,17 @@ public class UserServiceImpl implements UserService {
 
     // Update by id
     @Override
-    public User updateUserById(String id, User user) {
-        if (userRepository.existsByEmail(user.getEmail())) {
+    public UserDTO updateUserById(String id, UserDTO dto) {
+        if (userRepository.existsByEmail(dto.email())) {
             throw new EmailAlreadyUsedException(
-                    "Email " + user.getEmail() + " is already taken"
+                    "Email " + dto.email() + " is already taken"
             );
         }
         if (!userRepository.existsById(id)) {
             throw new IDNotFoundException("ID " + id + " not found");
         }
-        return userRepository.updateById(id, user);
+        User updatedUser = userRepository.updateById(id, UserMapper.toEntity(dto));
+        return UserMapper.toDTO(updatedUser);
     }
 
     // Delete by id

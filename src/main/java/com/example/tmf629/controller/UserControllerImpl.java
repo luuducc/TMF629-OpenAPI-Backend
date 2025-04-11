@@ -50,15 +50,12 @@ public class UserControllerImpl implements UserController {
     // Update user by ID
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable String id, @RequestBody UserDTO dto) {
-        Map<String, String> response = new HashMap<>();
-        System.out.println("dto " + dto.id() + ", " + dto.name() + ", " + dto.email());
-        if (!dto.isValidEmail()) {
-            response.put("message", "Invalid email");
-            return ResponseEntity.badRequest().body(response);
+    public ResponseEntity<UserDTO> updateUser(@PathVariable String id, @RequestBody UserDTO dto) {
+        if (dto.email() != null && !dto.isValidEmail()) {
+            throw new InvalidInputException("Email is invalid");
         }
-        User user = userService.updateUserById(id, UserMapper.toEntity(dto));
-        return ResponseEntity.ok(UserMapper.toDTO(user));
+        UserDTO updatedUser = userService.updateUserById(id, dto);
+        return ResponseEntity.ok(updatedUser);
     }
 
     // Delete user by ID
