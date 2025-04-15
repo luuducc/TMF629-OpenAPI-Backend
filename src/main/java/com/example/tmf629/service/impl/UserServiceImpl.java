@@ -1,4 +1,4 @@
-package com.example.tmf629.service;
+package com.example.tmf629.service.impl;
 
 import com.example.tmf629.dto.CreateUserDTO;
 import com.example.tmf629.dto.UserDTO;
@@ -8,6 +8,7 @@ import com.example.tmf629.mapper.CreateUserMapper;
 import com.example.tmf629.mapper.UserMapper;
 import com.example.tmf629.model.User;
 import com.example.tmf629.respository.UserRepository;
+import com.example.tmf629.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

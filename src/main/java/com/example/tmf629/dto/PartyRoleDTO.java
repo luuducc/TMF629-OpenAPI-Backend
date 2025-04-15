@@ -1,0 +1,35 @@
+package com.example.tmf629.dto;
+
+import com.example.tmf629.model.contactmedium.ContactMedium;
+import com.example.tmf629.model.partyref.PartyRef;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.EXISTING_PROPERTY,
+        property = "@type",
+        visible = true
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = CustomerDTO.class, name = "Customer")
+})
+@Data
+@SuperBuilder
+@NoArgsConstructor
+public class PartyRoleDTO {
+    private String name;
+
+    @JsonProperty("@type")
+    private String type;
+
+    private PartyRef engagedParty;
+    private String status;
+    private String id;
+    private ContactMedium[] contactMedium;
+    private String href;
+}

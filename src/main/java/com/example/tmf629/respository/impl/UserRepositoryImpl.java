@@ -1,6 +1,7 @@
-package com.example.tmf629.respository;
+package com.example.tmf629.respository.impl;
 
 import com.example.tmf629.model.User;
+import com.example.tmf629.respository.UserRepository;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
