@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
@@ -18,8 +19,8 @@ import lombok.Data;
 @Data
 public class PartyRef {
     private String href;
+    @NotBlank(message = "Field 'id' is required")
     private String id;
-    @JsonProperty(required = true)
     private String name;
 
     @JsonProperty("@baseType")
@@ -32,5 +33,6 @@ public class PartyRef {
     private String schemaLocation;
 
     @JsonProperty("@type")
+    @NotBlank(message = "Field '@type' is required")
     private String type;
 }
