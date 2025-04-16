@@ -1,8 +1,10 @@
 package com.example.tmf629.service.impl;
 
 import com.example.tmf629.dto.CustomerDTO;
+import com.example.tmf629.dto.PatchCustomerDTO;
 import com.example.tmf629.exception.IDNotFoundException;
 import com.example.tmf629.mapper.CustomerMapper;
+import com.example.tmf629.mapper.PatchCustomerMapper;
 import com.example.tmf629.model.partyrole.Customer;
 import com.example.tmf629.respository.CustomerRepository;
 import com.example.tmf629.service.CustomerService;
@@ -35,6 +37,16 @@ public class CustomerServiceImpl implements CustomerService {
             throw new IDNotFoundException("ID " + id + " not found");
         }
         return CustomerMapper.toDTO(customer);
+    }
+
+    @Override
+    public CustomerDTO patchCustomerById(String id, PatchCustomerDTO customerDTO) {
+        if (!customerRepository.existsById(id)) {
+            throw new IDNotFoundException("ID " + id + " not exists");
+        }
+        Customer customer = PatchCustomerMapper.toEntity(customerDTO);
+        Customer updatedCustomer = customerRepository.updateById(id, customer);
+        return CustomerMapper.toDTO(updatedCustomer);
     }
 
     @Override

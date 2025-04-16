@@ -8,6 +8,7 @@ public interface CustomerRepository {
     Customer save(Customer customer);
     List<Customer> findAll();
     Customer findById(String id);
+    Customer updateById(String id, Customer customer);
     void deleteById(String id);
     boolean existsById(String id);
 }

@@ -15,10 +15,20 @@ public class CustomerMapper {
                 .build();
     }
 
+    public static Customer toEntityForUpdate(CustomerDTO dto) {
+        return Customer.builder()
+                .name(dto.getName())
+                .status(dto.getStatus())
+                .engagedParty(dto.getEngagedParty())
+                .contactMedium(dto.getContactMedium())
+                .build();
+    }
+
     public static CustomerDTO toDTO(Customer entity) {
         return CustomerDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())
+                .status(entity.getStatus())
                 .type(entity.getType())
                 .engagedParty(entity.getEngagedParty())
                 .contactMedium(entity.getContactMedium())
