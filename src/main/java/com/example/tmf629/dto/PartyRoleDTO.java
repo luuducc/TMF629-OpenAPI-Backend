@@ -39,4 +39,7 @@ public class PartyRoleDTO {
     private String id;
     private ContactMedium[] contactMedium;
     private String href;
+
+    @Valid
+    private AccountRefDTO[] account;
 }

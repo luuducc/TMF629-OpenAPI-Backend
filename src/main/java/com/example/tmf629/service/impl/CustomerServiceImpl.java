@@ -1,5 +1,6 @@
 package com.example.tmf629.service.impl;
 
+import com.example.tmf629.dto.AccountRefDTO;
 import com.example.tmf629.dto.CustomerDTO;
 import com.example.tmf629.dto.PatchCustomerDTO;
 import com.example.tmf629.exception.IDNotFoundException;
@@ -11,6 +12,7 @@ import com.example.tmf629.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +22,16 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
     @Override
     public CustomerDTO createCustomer(CustomerDTO dto) {
+        // Set default value for account
+        AccountRefDTO[] accounts = dto.getAccount();
+        for (AccountRefDTO account : accounts != null ? accounts : new AccountRefDTO[]{}) {
+            if (account.getBaseType() == null) {
+                account.setBaseType("AccountRef");
+            }
+            if (account.getType() == null) {
+                account.setType("AccountRef");
+            }
+        }
         Customer customer = customerRepository.save(CustomerMapper.toEntity(dto));
         return CustomerMapper.toDTO(customer);
     }

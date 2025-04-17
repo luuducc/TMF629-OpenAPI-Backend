@@ -27,18 +27,6 @@ public class CustomerControllerImpl implements CustomerController {
             @RequestBody @Valid CustomerDTO dto,
             HttpServletRequest request
     ) {
-//        // check required fields
-//        if (
-//            ValidationUtils.checkRequired(dto.getName()) ||
-//            ValidationUtils.checkRequired(dto.getEngagedParty()) ||
-//            ValidationUtils.checkRequired(dto.getEngagedParty().getType()) ||
-//            ValidationUtils.checkRequired(dto.getEngagedParty().getId())
-//        ) {
-//            throw new IllegalArgumentException(
-//                    "Missing required fields: engagedParty, engagedParty.@type, engagedParty.id, name, @type"
-//            );
-//        }
-
         CustomerDTO createdUser = customerService.createCustomer(dto);
 
         String href = request.getRequestURL() + "/" + createdUser.getId();
@@ -77,7 +65,7 @@ public class CustomerControllerImpl implements CustomerController {
     public ResponseEntity<CustomerDTO> patchCustomer(
             @PathVariable String id, @RequestBody PatchCustomerDTO dto, HttpServletRequest request
     ) {
-        ValidationUtils.checkID("id");
+        ValidationUtils.checkID(id);
         CustomerDTO updatedCustomerDto = customerService.patchCustomerById(id, dto);
         updatedCustomerDto.setHref(request.getRequestURL().toString());
         return ResponseEntity.ok(updatedCustomerDto);
@@ -87,7 +75,7 @@ public class CustomerControllerImpl implements CustomerController {
     @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCustomerById(@PathVariable String id) {
-        ValidationUtils.checkID("id");
+        ValidationUtils.checkID(id);
         customerService.deleteCustomerById(id);
         return ResponseEntity.noContent().build(); // 204 status code
     }

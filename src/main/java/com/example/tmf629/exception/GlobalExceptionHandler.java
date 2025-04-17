@@ -1,6 +1,8 @@
 package com.example.tmf629.exception;
 
 import com.example.tmf629.dto.TmfErrorResponse;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.InvalidTypeIdException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +10,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 @ControllerAdvice
@@ -84,7 +90,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<TmfErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        // Extract the first validation error for simplicity
         FieldError fieldError = ex.getBindingResult().getFieldErrors().get(0);
         String field = fieldError.getField();
         String message = fieldError.getDefaultMessage();
@@ -95,6 +100,39 @@ public class GlobalExceptionHandler {
                 .reason("Invalid input provided")
                 .schemaLocation("https://example.com/error-schema")
                 .message(String.format("Field '%s': %s", field, message))
+                .status("400")
+                .referenceError("https://example.com/errors/bad-request")
+                .build();
+        return ResponseEntity.badRequest().body(response);
+    }
+
+    @ExceptionHandler(InvalidFormatException.class)
+    public ResponseEntity<TmfErrorResponse> handleInvalidFormatException(InvalidFormatException ex) {
+        String fieldName = ex.getPath().stream()
+                .map(JsonMappingException.Reference::getFieldName)
+                .filter(Objects::nonNull)
+                .collect(Collectors.joining("."));
+        Class<?> targetType = ex.getTargetType();
+        String invalidValue = ex.getValue().toString();
+
+        StringBuilder validValues = new StringBuilder();
+        if (targetType.isEnum()) {
+            Object[] constants = targetType.getEnumConstants();
+
+            for (int i = 0; i < constants.length; i++) {
+                validValues.append(constants[i].toString());
+                if (i < constants.length - 1) {
+                    validValues.append(", ");
+                }
+            }
+        }
+        TmfErrorResponse response = TmfErrorResponse.builder()
+                .type("ValidationError")
+                .code("400")
+                .reason("Invalid input provided")
+                .schemaLocation("https://example.com/error-schema")
+                .message(String.format("Invalid value '%s' for field '%s'. Allowed values: %s",
+                        invalidValue, fieldName, validValues))
                 .status("400")
                 .referenceError("https://example.com/errors/bad-request")
                 .build();
