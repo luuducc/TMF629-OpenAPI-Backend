@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
-@JsonTypeName("Customer")
 @Document(collection = "customers")
 @NoArgsConstructor
 public class Customer extends PartyRole {

@@ -1,7 +1,6 @@
 package com.example.tmf629.dto;
 
 import com.example.tmf629.model.contactmedium.ContactMedium;
-import com.example.tmf629.model.partyref.PartyRef;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -34,7 +33,7 @@ public class PartyRoleDTO {
 
     @NotNull(message = "Field 'engagedParty' is required")
     @Valid // Cascades validation to nested object
-    private PartyRef engagedParty;
+    private PartyRefDTO engagedParty;
     private String status;
     private String id;
     private ContactMedium[] contactMedium;

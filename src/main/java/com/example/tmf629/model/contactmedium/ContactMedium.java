@@ -7,13 +7,13 @@ import lombok.Data;
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.EXISTING_PROPERTY,
         property = "@type",
-        visible = true // also use this property for deserialization
+        visible = true // show the property for deserialization
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = PhoneContactMedium.class, name = "PhoneContactMedium"),
         @JsonSubTypes.Type(value = GeographicAddressContactMedium.class, name = "GeographicAddressContactMedium")
 })
-@JsonInclude(JsonInclude.Include.NON_NULL) // Exclude null fields
+@JsonInclude(JsonInclude.Include.NON_NULL) // Excludes null fields
 @JsonPropertyOrder({
         "@type", "preferred", "contactType", "validFor"
 })

@@ -20,7 +20,7 @@ public class CustomerMapper {
                 .name(dto.getName())
                 .type(dto.getType())
                 .status(dto.getStatus())
-                .engagedParty(dto.getEngagedParty())
+                .engagedParty(PartyRefMapper.toEntity(dto.getEngagedParty()))
                 .account(account)
                 .contactMedium(dto.getContactMedium())
                 .build();
@@ -39,7 +39,7 @@ public class CustomerMapper {
                 .name(entity.getName())
                 .status(entity.getStatus())
                 .type(entity.getType())
-                .engagedParty(entity.getEngagedParty())
+                .engagedParty(PartyRefMapper.toDto(entity.getEngagedParty()))
                 .account(account)
                 .contactMedium(entity.getContactMedium())
                 .build();
