@@ -1,6 +1,5 @@
 package com.example.tmf629.model.partyrole;
 
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
