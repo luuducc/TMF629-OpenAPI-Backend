@@ -2,7 +2,9 @@ package com.example.tmf629.mapper;
 
 import com.example.tmf629.dto.AccountRefDTO;
 import com.example.tmf629.dto.CustomerDTO;
+import com.example.tmf629.dto.contactmedium.ContactMediumDTO;
 import com.example.tmf629.model.account_ref.AccountRef;
+import com.example.tmf629.model.contactmedium.ContactMedium;
 import com.example.tmf629.model.partyrole.Customer;
 
 import java.util.Arrays;
@@ -15,6 +17,14 @@ public class CustomerMapper {
                     .map(AccountRefMapper::toEntity)
                     .toArray(AccountRef[]::new);
         }
+
+        ContactMedium[] contactMedium = null;
+        if (dto.getContactMedium() != null) {
+            contactMedium = Arrays.stream(dto.getContactMedium())
+                    .map(ContactMediumMapper::toEntity)
+                    .toArray(ContactMedium[]::new);
+        }
+
         return Customer.builder()
                 .id(dto.getId())
                 .name(dto.getName())
@@ -22,7 +32,7 @@ public class CustomerMapper {
                 .status(dto.getStatus())
                 .engagedParty(PartyRefMapper.toEntity(dto.getEngagedParty()))
                 .account(account)
-                .contactMedium(dto.getContactMedium())
+                .contactMedium(contactMedium)
                 .build();
     }
 
@@ -34,6 +44,13 @@ public class CustomerMapper {
                     .toArray(AccountRefDTO[]::new);
         }
 
+        ContactMediumDTO[] contactMedium = null;
+        if (entity.getContactMedium() != null) {
+            contactMedium = Arrays.stream(entity.getContactMedium())
+                    .map(ContactMediumMapper::toDTO)
+                    .toArray(ContactMediumDTO[]::new);
+        }
+
         return CustomerDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())
@@ -42,7 +59,7 @@ public class CustomerMapper {
                 .baseType(entity.getBaseType())
                 .engagedParty(PartyRefMapper.toDto(entity.getEngagedParty()))
                 .account(account)
-                .contactMedium(entity.getContactMedium())
+                .contactMedium(contactMedium)
                 .build();
     }
 }

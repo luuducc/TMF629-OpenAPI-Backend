@@ -5,12 +5,6 @@ import com.example.tmf629.enums.CustomerStatus;
 import com.example.tmf629.model.partyrole.Customer;
 
 public class PatchCustomerMapper {
-    public static PatchCustomerDTO toPatchCustomerDTO(Customer entity) {
-        return new PatchCustomerDTO(
-                entity.getName(), entity.getEngagedParty(), entity.getStatus().toString(), entity.getContactMedium()
-        );
-    }
-
     public static Customer toEntity(PatchCustomerDTO dto) {
         return Customer.builder()
                 .name(dto.getName())

@@ -1,7 +1,7 @@
 package com.example.tmf629.dto;
 
+import com.example.tmf629.dto.contactmedium.ContactMediumDTO;
 import com.example.tmf629.enums.CustomerStatus;
-import com.example.tmf629.model.contactmedium.ContactMedium;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -41,7 +41,7 @@ public class PartyRoleDTO {
 
     private CustomerStatus status;
     private String id;
-    private ContactMedium[] contactMedium;
+    private ContactMediumDTO[] contactMedium;
     private String href;
 
     @Valid
