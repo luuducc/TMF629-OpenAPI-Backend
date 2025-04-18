@@ -1,6 +1,6 @@
-package com.example.tmf629.mapper;
+package com.example.tmf629.mapper.partyref;
 
-import com.example.tmf629.dto.PartyRefDTO;
+import com.example.tmf629.dto.partyref.PartyRefDTO;
 import com.example.tmf629.model.partyref.PartyRef;
 
 public class PartyRefMapper {

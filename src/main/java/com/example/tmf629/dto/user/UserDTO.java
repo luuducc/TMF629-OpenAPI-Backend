@@ -1,4 +1,4 @@
-package com.example.tmf629.dto;
+package com.example.tmf629.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

@@ -1,16 +1,15 @@
-package com.example.tmf629.dto;
+package com.example.tmf629.dto.partyref;
 
-import com.example.tmf629.enums.AccountType;
+import com.example.tmf629.enums.PartyType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @Builder
-public class AccountRefDTO {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class PartyRefDTO {
     private String href;
     private String id;
     private String name;
@@ -19,8 +18,7 @@ public class AccountRefDTO {
     private String baseType;
 
     @JsonProperty("@referredType")
-    @NotNull(message = "Field 'AccountRef.@referredType' is required")
-    private AccountType referredType;
+    private PartyType referredType; // Individual or Organization
 
     @JsonProperty("@schemaLocation")
     private String schemaLocation;
@@ -28,4 +26,3 @@ public class AccountRefDTO {
     @JsonProperty("@type")
     private String type;
 }
-

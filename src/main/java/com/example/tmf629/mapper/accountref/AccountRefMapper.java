@@ -1,7 +1,7 @@
-package com.example.tmf629.mapper;
+package com.example.tmf629.mapper.accountref;
 
-import com.example.tmf629.dto.AccountRefDTO;
-import com.example.tmf629.model.account_ref.AccountRef;
+import com.example.tmf629.dto.accountref.AccountRefDTO;
+import com.example.tmf629.model.accountref.AccountRef;
 
 public class AccountRefMapper {
     public static AccountRef toEntity(AccountRefDTO dto) {

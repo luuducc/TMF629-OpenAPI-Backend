@@ -1,7 +1,7 @@
-package com.example.tmf629.mapper;
+package com.example.tmf629.mapper.user;
 
-import com.example.tmf629.dto.UserDTO;
-import com.example.tmf629.model.User;
+import com.example.tmf629.dto.user.UserDTO;
+import com.example.tmf629.model.user.User;
 
 public class UserMapper {
     public static UserDTO toDTO(User user) {

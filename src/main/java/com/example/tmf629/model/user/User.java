@@ -1,4 +1,4 @@
-package com.example.tmf629.model;
+package com.example.tmf629.model.user;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

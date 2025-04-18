@@ -1,6 +1,6 @@
 package com.example.tmf629.respository;
 
-import com.example.tmf629.model.User;
+import com.example.tmf629.model.user.User;
 
 import java.util.List;
 

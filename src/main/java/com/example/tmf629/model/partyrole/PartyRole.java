@@ -1,7 +1,7 @@
 package com.example.tmf629.model.partyrole;
 
 import com.example.tmf629.enums.CustomerStatus;
-import com.example.tmf629.model.account_ref.AccountRef;
+import com.example.tmf629.model.accountref.AccountRef;
 import com.example.tmf629.model.partyref.PartyRef;
 import com.example.tmf629.model.contactmedium.ContactMedium;
 import lombok.Builder;

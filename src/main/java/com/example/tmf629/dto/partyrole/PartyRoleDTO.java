@@ -1,5 +1,7 @@
-package com.example.tmf629.dto;
+package com.example.tmf629.dto.partyrole;
 
+import com.example.tmf629.dto.accountref.AccountRefDTO;
+import com.example.tmf629.dto.partyref.PartyRefDTO;
 import com.example.tmf629.dto.contactmedium.ContactMediumDTO;
 import com.example.tmf629.enums.CustomerStatus;
 import com.fasterxml.jackson.annotation.JsonProperty;

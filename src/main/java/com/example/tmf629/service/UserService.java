@@ -1,8 +1,8 @@
 package com.example.tmf629.service;
 
-import com.example.tmf629.dto.CreateUserDTO;
-import com.example.tmf629.dto.UserDTO;
-import com.example.tmf629.model.User;
+import com.example.tmf629.dto.user.CreateUserDTO;
+import com.example.tmf629.dto.user.UserDTO;
+import com.example.tmf629.model.user.User;
 
 import java.util.List;
 

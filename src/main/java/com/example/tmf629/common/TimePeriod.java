@@ -1,4 +1,4 @@
-package com.example.tmf629.model.contactmedium;
+package com.example.tmf629.common;
 
 import lombok.Data;
 

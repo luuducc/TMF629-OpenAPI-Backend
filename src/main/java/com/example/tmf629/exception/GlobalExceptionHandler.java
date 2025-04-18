@@ -1,6 +1,6 @@
 package com.example.tmf629.exception;
 
-import com.example.tmf629.dto.TmfErrorResponse;
+import com.example.tmf629.dto.error.TmfErrorResponse;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.InvalidTypeIdException;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
 

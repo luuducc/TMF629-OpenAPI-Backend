@@ -1,12 +1,12 @@
 package com.example.tmf629.service.impl;
 
-import com.example.tmf629.dto.AccountRefDTO;
-import com.example.tmf629.dto.CustomerDTO;
-import com.example.tmf629.dto.PatchCustomerDTO;
+import com.example.tmf629.dto.accountref.AccountRefDTO;
+import com.example.tmf629.dto.partyrole.CustomerDTO;
+import com.example.tmf629.dto.partyrole.PatchCustomerDTO;
 import com.example.tmf629.enums.CustomerStatus;
 import com.example.tmf629.exception.IDNotFoundException;
-import com.example.tmf629.mapper.CustomerMapper;
-import com.example.tmf629.mapper.PatchCustomerMapper;
+import com.example.tmf629.mapper.partyrole.CustomerMapper;
+import com.example.tmf629.mapper.partyrole.PatchCustomerMapper;
 import com.example.tmf629.model.partyrole.Customer;
 import com.example.tmf629.respository.CustomerRepository;
 import com.example.tmf629.service.CustomerService;

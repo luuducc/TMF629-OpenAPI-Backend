@@ -1,7 +1,7 @@
 package com.example.tmf629.service;
 
-import com.example.tmf629.dto.CustomerDTO;
-import com.example.tmf629.dto.PatchCustomerDTO;
+import com.example.tmf629.dto.partyrole.CustomerDTO;
+import com.example.tmf629.dto.partyrole.PatchCustomerDTO;
 
 import java.util.List;
 

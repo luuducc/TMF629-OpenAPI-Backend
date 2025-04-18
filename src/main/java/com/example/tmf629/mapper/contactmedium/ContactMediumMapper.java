@@ -1,4 +1,4 @@
-package com.example.tmf629.mapper;
+package com.example.tmf629.mapper.contactmedium;
 
 import com.example.tmf629.dto.contactmedium.ContactMediumDTO;
 import com.example.tmf629.model.contactmedium.ContactMedium;

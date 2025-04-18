@@ -1,11 +1,11 @@
 package com.example.tmf629.controller.impl;
 
 import com.example.tmf629.controller.UserController;
-import com.example.tmf629.dto.CreateUserDTO;
-import com.example.tmf629.dto.UserDTO;
+import com.example.tmf629.dto.user.CreateUserDTO;
+import com.example.tmf629.dto.user.UserDTO;
 import com.example.tmf629.exception.InvalidInputException;
-import com.example.tmf629.mapper.UserMapper;
-import com.example.tmf629.model.User;
+import com.example.tmf629.mapper.user.UserMapper;
+import com.example.tmf629.model.user.User;
 import com.example.tmf629.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

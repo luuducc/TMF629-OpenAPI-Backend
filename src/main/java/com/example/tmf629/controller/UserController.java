@@ -1,7 +1,7 @@
 package com.example.tmf629.controller;
 
-import com.example.tmf629.dto.CreateUserDTO;
-import com.example.tmf629.dto.UserDTO;
+import com.example.tmf629.dto.user.CreateUserDTO;
+import com.example.tmf629.dto.user.UserDTO;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

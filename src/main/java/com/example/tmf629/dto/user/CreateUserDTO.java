@@ -1,4 +1,4 @@
-package com.example.tmf629.dto;
+package com.example.tmf629.dto.user;
 
 public record CreateUserDTO(String name, String email, String password) {
 

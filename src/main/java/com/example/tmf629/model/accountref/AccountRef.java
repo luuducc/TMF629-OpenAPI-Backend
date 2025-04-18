@@ -1,4 +1,4 @@
-package com.example.tmf629.model.account_ref;
+package com.example.tmf629.model.accountref;
 
 import com.example.tmf629.enums.AccountType;
 import lombok.Builder;

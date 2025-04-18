@@ -1,9 +1,12 @@
-package com.example.tmf629.mapper;
+package com.example.tmf629.mapper.partyrole;
 
-import com.example.tmf629.dto.AccountRefDTO;
-import com.example.tmf629.dto.CustomerDTO;
+import com.example.tmf629.dto.accountref.AccountRefDTO;
+import com.example.tmf629.dto.partyrole.CustomerDTO;
 import com.example.tmf629.dto.contactmedium.ContactMediumDTO;
-import com.example.tmf629.model.account_ref.AccountRef;
+import com.example.tmf629.mapper.accountref.AccountRefMapper;
+import com.example.tmf629.mapper.contactmedium.ContactMediumMapper;
+import com.example.tmf629.mapper.partyref.PartyRefMapper;
+import com.example.tmf629.model.accountref.AccountRef;
 import com.example.tmf629.model.contactmedium.ContactMedium;
 import com.example.tmf629.model.partyrole.Customer;
 

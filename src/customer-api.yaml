@@ -1,0 +1,369 @@
+openapi: 3.0.0
+info:
+  title: TMF629 Study
+  description: CRUD operations for Customer
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/customerManagement/v1/customer/
+tags:
+  - name: customer
+    description: Customer's operations
+paths:
+  /:
+    post:
+      tags:
+        - customer
+      summary: Create new customer
+      description: Create new customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+      responses:
+        '200':
+          description: Successfully create new customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+    get:
+      tags:
+        - customer
+      summary: Get all customers
+      description: Get all customers
+      responses:
+        '200':
+          description: Successfully get all customers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerResponse'
+  /{id}:
+    get:
+      tags:
+        - customer
+      summary: Find customer by ID
+      description: Return single customer
+      parameters:
+        - name: id
+          in: path
+          description: ID of customer
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully get a customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+    patch:
+      tags:
+        - customer
+      summary: Partially update customer
+      description: Partially update customer
+      parameters:
+        - name: id
+          in: path
+          description: ID of customer
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+      responses:
+        '200':
+          description: Successfully performed a partial update on a customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '404':
+          description: Not found request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+    delete:
+      tags:
+        - customer
+      summary: Delete customer by ID
+      description: Delete customer by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of customer
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No content – customer deleted successfully
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BadRequestResponse'
+                  - type: object
+                    properties:
+                      reason:
+                        example: Illegal argument provided
+                      message:
+                        example: ID abc is not a valid ID
+        '404':
+          description: Not found request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+components:
+  schemas:
+    CustomerRequest:
+      type: object
+      properties:
+        '@type':
+          type: string
+          enum: [Customer]
+        name:
+          type: string
+          description: Name of the customer
+          example: Moon Football Club
+        engagedParty:
+          $ref: '#/components/schemas/PartyRef'
+        contactMedium:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/PhoneContactMedium'
+              - $ref: '#/components/schemas/GeographicAddressContactMedium'
+        account:
+          type: array
+          description: List of contact methods associated with the customer
+          items:
+            $ref: '#/components/schemas/AccountRef'
+    CustomerResponse:
+      allOf:
+        - $ref: '#/components/schemas/CustomerRequest'
+        - type: object
+          properties:
+            status:
+              type: string
+              enum: [Created, Active, InActive]
+              description: Current status of the customer
+              example: Created
+            id:
+              type: string
+              pattern: '^[a-fA-F0-9]{24}$'
+              description: MongoDB ObjectId format (24 hex characters)
+              example: 507f1f77bcf86cd799439011
+            href:
+              type: string
+              description: Hyperlink reference to the customer resource
+              example: http://localhost:8080/customerManagement/v1/customer/507f1f77bcf86cd799439011
+    PartyRef:
+      type: object
+      properties:
+        href:
+          type: string
+          example: https://host:port/tmf-api/partyManagement/v5/organization/500
+        id:
+          type: string
+          example: 500
+        name:
+          type: string
+          example: Happy Travellers
+        '@baseType':
+          type: string
+        '@referredType':
+          type: string
+          enum: [Individual, Organization]
+          example: Organization
+        '@schemaLocation':
+          type: string
+        '@type':
+          type: string
+          enum: [PartyRef]
+    ContactMedium:
+      type: object
+      properties:
+        contactType:
+          type: string
+          enum: [homePhone, homeAddress]
+        id:
+          type: string
+        preferred:
+          type: boolean
+          example: true
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+        '@schemaLocation':
+          type: string
+        '@type':
+          type: string
+          enum: [PhoneContactMedium, GeographicAddressContactMedium]
+    PhoneContactMedium:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium'
+        - type: object
+          properties:
+            '@type':
+              example: PhoneContactMedium
+            contactType:
+              example: homePhone
+            phoneNumber:
+              type: string
+              example: 01 09 75 83 51
+    GeographicAddressContactMedium:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium'
+        - type: object
+          properties:
+            '@type':
+              example: GeographicAddressContactMedium
+            contactType:
+              example: homeAddress
+            preferred:
+              example: false
+            city:
+              type: string
+              example: Paris
+            country:
+              type: string
+              example: France
+            postCode:
+              type: string
+              example: postCode
+            street1:
+              type: string
+              example: 15 Rue des Canards
+            street2:
+              type: string
+
+    AccountRef:
+      type: object
+      properties:
+        href:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        '@baseType':
+          type: string
+        '@referredType':
+          type: string
+          enum: [BillingAccount, SettlementAccount]
+        '@schemaLocation':
+          type: string
+        '@type':
+          type: string
+    TimePeriod:
+      type: object
+      properties:
+        startDateTime:
+          type: string
+          description: Start of the time period in ISO 8601 format
+          format: date-time
+          example: "2023-01-01T00:00:00Z"
+        endDateTime:
+          type: string
+          description: End of the time period in ISO 8601 format
+          format: date-time
+          example: "2023-12-31T23:59:59Z"
+    ErrorResponse:
+      type: object
+      properties:
+        '@type':
+          type: string
+          enum: [ValidationError, NotFoundError]
+        code:
+          type: string
+          enum: ['400', '404']
+        reason:
+          type: string
+        message:
+          type: string
+        status:
+          type: string
+        referenceError:
+          type: string
+        '@baseType':
+          type: string
+          enum: [ApiError]
+        '@schemaLocation':
+          type: string
+    BadRequestResponse:
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+        - type: object
+          properties:
+            '@type':
+              type: string
+              enum: [ValidationError]
+            code:
+              type: string
+              enum: ['400']
+            reason:
+              type: string
+              example: Invalid input provided
+            message:
+              type: string
+              example: "Invalid value 'wrong-type' for field 'account.@referredType'. Allowed values: BillingAccount, SettlementAccount"
+            status:
+              type: string
+              enum: ['400']
+            referenceError:
+              type: string
+              example: https://example.com/errors/bad-request
+            '@schemaLocation':
+              type: string
+              example: https://example.com/error-schema
+    NotFoundResponse:
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+        - type: object
+          properties:
+            '@type':
+              enum: [NotFoundError]
+            code:
+              enum: ['404']
+            reason:
+              example: The requested resource was not found
+            message:
+              example: ID 67fe23902a287f45436f1673 not exists
+            status:
+              type: string
+              enum: ['404']
+            referenceError:
+              example: https://example.com/errors/not-found
+            '@schemaLocation':
+              example: https://example.com/error-schema
