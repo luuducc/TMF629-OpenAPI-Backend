@@ -31,9 +31,13 @@ public class PartyRoleDTO {
     @NotBlank(message = "Field '@type' is required")
     private String type;
 
+    @JsonProperty("@baseType")
+    private String baseType;
+
     @NotNull(message = "Field 'engagedParty' is required")
     @Valid // Cascades validation to nested object
     private PartyRefDTO engagedParty;
+
     private String status;
     private String id;
     private ContactMedium[] contactMedium;

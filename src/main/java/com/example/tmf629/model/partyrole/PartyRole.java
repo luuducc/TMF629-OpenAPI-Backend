@@ -3,6 +3,7 @@ package com.example.tmf629.model.partyrole;
 import com.example.tmf629.model.account_ref.AccountRef;
 import com.example.tmf629.model.partyref.PartyRef;
 import com.example.tmf629.model.contactmedium.ContactMedium;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -16,6 +17,9 @@ public class PartyRole {
     private String id;
     private String name;
     private String type;
+
+    @Builder.Default
+    private String baseType = "PartyRef";
     private PartyRef engagedParty;
     private String status;
     private ContactMedium[] contactMedium;

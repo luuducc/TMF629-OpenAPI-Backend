@@ -39,6 +39,7 @@ public class CustomerMapper {
                 .name(entity.getName())
                 .status(entity.getStatus())
                 .type(entity.getType())
+                .baseType(entity.getBaseType())
                 .engagedParty(PartyRefMapper.toDto(entity.getEngagedParty()))
                 .account(account)
                 .contactMedium(entity.getContactMedium())

@@ -17,6 +17,7 @@ public class TmfErrorResponse {
     private String referenceError;
 
     @JsonProperty("@baseType")
+    @Builder.Default
     private String baseType = "ApiError";
 
     @JsonProperty("@schemaLocation")
