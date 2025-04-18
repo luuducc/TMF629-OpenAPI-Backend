@@ -1,5 +1,6 @@
 package com.example.tmf629.model.partyrole;
 
+import com.example.tmf629.enums.CustomerStatus;
 import com.example.tmf629.model.account_ref.AccountRef;
 import com.example.tmf629.model.partyref.PartyRef;
 import com.example.tmf629.model.contactmedium.ContactMedium;
@@ -21,7 +22,7 @@ public class PartyRole {
     @Builder.Default
     private String baseType = "PartyRef";
     private PartyRef engagedParty;
-    private String status;
+    private CustomerStatus status;
     private ContactMedium[] contactMedium;
     private AccountRef[] account;
 }

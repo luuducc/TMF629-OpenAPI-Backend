@@ -3,7 +3,6 @@ package com.example.tmf629.dto;
 import com.example.tmf629.model.contactmedium.ContactMedium;
 import com.example.tmf629.model.partyref.PartyRef;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
 @AllArgsConstructor

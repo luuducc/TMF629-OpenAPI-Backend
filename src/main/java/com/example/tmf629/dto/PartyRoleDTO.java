@@ -1,5 +1,6 @@
 package com.example.tmf629.dto;
 
+import com.example.tmf629.enums.CustomerStatus;
 import com.example.tmf629.model.contactmedium.ContactMedium;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -38,7 +39,7 @@ public class PartyRoleDTO {
     @Valid // Cascades validation to nested object
     private PartyRefDTO engagedParty;
 
-    private String status;
+    private CustomerStatus status;
     private String id;
     private ContactMedium[] contactMedium;
     private String href;

@@ -3,6 +3,7 @@ package com.example.tmf629.service.impl;
 import com.example.tmf629.dto.AccountRefDTO;
 import com.example.tmf629.dto.CustomerDTO;
 import com.example.tmf629.dto.PatchCustomerDTO;
+import com.example.tmf629.enums.CustomerStatus;
 import com.example.tmf629.exception.IDNotFoundException;
 import com.example.tmf629.mapper.CustomerMapper;
 import com.example.tmf629.mapper.PatchCustomerMapper;
@@ -12,7 +13,6 @@ import com.example.tmf629.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +22,9 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
     @Override
     public CustomerDTO createCustomer(CustomerDTO dto) {
+        // Set status to Created
+        dto.setStatus(CustomerStatus.Created);
+
         // Set default value for account
         AccountRefDTO[] accounts = dto.getAccount();
         for (AccountRefDTO account : accounts != null ? accounts : new AccountRefDTO[]{}) {
