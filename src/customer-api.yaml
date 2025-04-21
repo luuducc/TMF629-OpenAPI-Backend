@@ -4,12 +4,12 @@ info:
   description: CRUD operations for Customer
   version: 1.0.0
 servers:
-  - url: http://localhost:8080/customerManagement/v1/customer
+  - url: http://localhost:8080/customerManagement/v1
 tags:
   - name: customer
     description: Customer's operations
 paths:
-  /:
+  /customer:
     post:
       tags:
         - customer
@@ -47,7 +47,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CustomerResponse'
-  /{id}:
+  /customer/{id}:
     get:
       tags:
         - customer
