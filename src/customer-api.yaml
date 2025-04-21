@@ -4,7 +4,7 @@ info:
   description: CRUD operations for Customer
   version: 1.0.0
 servers:
-  - url: http://localhost:8080/customerManagement/v1/customer/
+  - url: http://localhost:8080/customerManagement/v1/customer
 tags:
   - name: customer
     description: Customer's operations
@@ -145,131 +145,112 @@ paths:
                 $ref: '#/components/schemas/NotFoundResponse'
 components:
   schemas:
+    # Customer
     CustomerRequest:
       type: object
       properties:
-        '@type':
-          type: string
-          enum: [Customer]
-        name:
-          type: string
-          description: Name of the customer
-          example: Moon Football Club
-        engagedParty:
-          $ref: '#/components/schemas/PartyRef'
+        account:
+          type: array
+          description: List of accounts associated with the customer.
+          items:
+            $ref: '#/components/schemas/AccountRef'
+        agreement:
+          type: array
+          description: Contracts or formal arrangements between the customer and the service provider.
+          items:
+            $ref: '#/components/schemas/AgreementRef'
+        characteristic:
+          type: array
+          description: List of additional information to describe the customer.
+          items:
+            $ref: '#/components/schemas/Characteristic'
         contactMedium:
           type: array
+          description: List of communication channels the customer prefers or uses (e.g., phone, address).
           items:
             oneOf:
               - $ref: '#/components/schemas/PhoneContactMedium'
               - $ref: '#/components/schemas/GeographicAddressContactMedium'
-        account:
+        creditProfile:
           type: array
-          description: List of contact methods associated with the customer
+          description: Customer’s credit scoring or credit-related information.
           items:
-            $ref: '#/components/schemas/AccountRef'
+            $ref: '#/components/schemas/CreditProfile'
+        description:
+          type: string
+          description: Free-text description of the customer.
+          example: Long-term customer with premium support.
+        engagedParty:
+          $ref: '#/components/schemas/PartyRef'
+        name:
+          type: string
+          description: Name or label of the customer.
+          example: Moon Football Club
+        partyRoleSpecification:
+          $ref: '#/components/schemas/PartyRoleSpecificationRef'
+        paymentMethod:
+          type: array
+          description: List of payment methods associated with the customer.
+          items:
+            $ref: '#/components/schemas/PaymentMethodRef'
+        relatedParty:
+          type: array
+          description: List of parties or party roles related to this customer (e.g., account manager, billing contact).
+          items:
+            $ref: '#/components/schemas/RelatedPartyOrPartyRole'
+        role:
+          type: string
+          description: Role of the engaged party, optionally refining or replacing partyRoleSpecification.
+          example: BillingAccountOwner
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@type':
+          type: string
+          description: Indicates the concrete type of the customer entity.
+          enum: [Customer]
     CustomerResponse:
       allOf:
         - $ref: '#/components/schemas/CustomerRequest'
         - type: object
           properties:
-            status:
-              type: string
-              enum: [Created, Active, InActive]
-              description: Current status of the customer
-              example: Created
-            id:
-              type: string
-              pattern: '^[a-fA-F0-9]{24}$'
-              description: MongoDB ObjectId format (24 hex characters)
-              example: 507f1f77bcf86cd799439011
             href:
               type: string
-              description: Hyperlink reference to the customer resource
+              description: Hyperlink reference to the customer resource.
               example: http://localhost:8080/customerManagement/v1/customer/507f1f77bcf86cd799439011
-    PartyRef:
-      type: object
-      properties:
-        href:
-          type: string
-          example: https://host:port/tmf-api/partyManagement/v5/organization/500
-        id:
-          type: string
-          example: 500
-        name:
-          type: string
-          example: Happy Travellers
-        '@baseType':
-          type: string
-        '@referredType':
-          type: string
-          enum: [Individual, Organization]
-          example: Organization
-        '@schemaLocation':
-          type: string
-        '@type':
-          type: string
-          enum: [PartyRef]
-    ContactMedium:
-      type: object
-      properties:
-        contactType:
-          type: string
-          enum: [homePhone, homeAddress]
-        id:
-          type: string
-        preferred:
-          type: boolean
-          example: true
-        validFor:
-          $ref: '#/components/schemas/TimePeriod'
-        '@baseType':
-          type: string
-        '@schemaLocation':
-          type: string
-        '@type':
-          type: string
-          enum: [PhoneContactMedium, GeographicAddressContactMedium]
-    PhoneContactMedium:
-      allOf:
-        - $ref: '#/components/schemas/ContactMedium'
-        - type: object
-          properties:
-            '@type':
-              example: PhoneContactMedium
-            contactType:
-              example: homePhone
-            phoneNumber:
+            id:
               type: string
-              example: 01 09 75 83 51
-    GeographicAddressContactMedium:
-      allOf:
-        - $ref: '#/components/schemas/ContactMedium'
-        - type: object
-          properties:
-            '@type':
-              example: GeographicAddressContactMedium
-            contactType:
-              example: homeAddress
-            preferred:
-              example: false
-            city:
+              description: Unique identifier for the customer in MongoDB, represented in ObjectId format (24 hex characters).
+              pattern: '^[a-fA-F0-9]{24}$'
+              example: 507f1f77bcf86cd799439011
+            status:
               type: string
-              example: Paris
-            country:
+              description: Lifecycle status of the customer.
+              enum: [Created, Active, InActive, Suspended, Terminated, Pending]
+              example: Created
+            statusReason:
               type: string
-              example: France
-            postCode:
+              description: Provides additional context or explanation for the customer's current status.
+              enum:
+                - Customer not responding
+                - Payment overdue
+                - Exceeded usage limits
+                - Customer requested cancellation
+                - Contract expired
+                - Awaiting identity verification
+                - ...
+            '@baseType':
               type: string
-              example: postCode
-            street1:
+              description: The base type of Customer object, in this case is PartyRole.
+              enum: [PartyRole]
+            '@schemaLocation':
               type: string
-              example: 15 Rue des Canards
-            street2:
-              type: string
+              description: A URI pointing to the location of the schema that describes the structure of this resource.
+              example: https://example.com/schemas/customer
 
+    ## Customer's subtypes
     AccountRef:
       type: object
+      description: Reference to a customer account, typically used for billing or service tracking purposes.
       properties:
         href:
           type: string
@@ -286,8 +267,179 @@ components:
           type: string
         '@type':
           type: string
+    AgreementRef:
+      type: object
+      description: Reference to an agreement defining the terms and conditions between the customer and the service provider.
+      properties:
+        href:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        '@baseType':
+          type: string
+        '@referredType':
+          type: string
+        '@schemaLocation':
+          type: string
+        '@type':
+          type: string
+    Characteristic:
+      type: object
+      description: Describes the characteristic of a customer.
+      properties:
+        characteristicRelationship:
+          $ref: '#/components/schemas/CharacteristicRelationship'
+        id:
+          type: string
+          description: Unique identifier of the characteristic.
+        name:
+          type: string
+          description: Name of the characteristic.
+        valueType:
+          type: string
+          description: Data type of the value of the characteristic.
+        '@baseType':
+          type: string
+        '@schemaLocation':
+          type: string
+        '@type':
+          type: string
+    ContactMedium:
+      type: object
+      description: Indicates the contact medium that could be used to contact the customer.
+      properties:
+        contactType:
+          type: string
+          description: A label to qualify or categorize the contact, not to describe how the contact is made (e.g., phone, email).
+          enum: [ homePhone, homeAddress ]
+        id:
+          type: string
+          description: Identifier for this contact medium.
+        preferred:
+          type: boolean
+          description: If true, indicates that is the preferred contact medium.
+          example: true
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+        '@schemaLocation':
+          type: string
+        '@type':
+          type: string
+          enum:
+            - EmailContactMedium
+            - FaxContactMedium
+            - GeographicAddressContactMedium
+            - PhoneContactMedium
+            - SocialContactMedium
+    CreditProfile:
+      type: object
+      description: Credit profile of the party, including credit score and history. The first item is the current profile by default.
+      properties:
+        creditProfileDate:
+          type: string
+          format: date-time
+          description: The date the profile was established.
+        creditRiskRating:
+          type: integer
+          description: This is an integer whose value is used to rate the risk.
+        creditScore:
+          type: integer
+          description: A measure of creditworthiness based on factors like income and credit history.
+        href:
+          type: string
+        id:
+          type: string
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@baseType':
+          type: string
+        '@schemaLocation':
+          type: string
+        '@type':
+          type: string
+    PartyRef:
+      type: object
+      description: A Party reference.
+      properties:
+        href:
+          type: string
+          example: https://host:port/tmf-api/partyManagement/v5/organization/500
+        id:
+          type: string
+          example: 500
+        name:
+          type: string
+          example: Happy Travellers
+        '@baseType':
+          type: string
+        '@referredType':
+          type: string
+          enum: [ Individual, Organization ]
+          example: Organization
+        '@schemaLocation':
+          type: string
+        '@type':
+          type: string
+          enum: [ PartyRef ]
+    PartyRoleSpecificationRef:
+      type: object
+      description: Reference to a party role specification, detailing the role a customer plays in a specific context.
+      properties:
+        href:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        '@baseType':
+          type: string
+        '@referredType':
+          type: string
+        '@schemaLocation':
+          type: string
+        '@type':
+          type: string
+    PaymentMethodRef:
+      type: object
+      description: Reference to a payment method, such as direct debit.
+      properties:
+        href:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        '@baseType':
+          type: string
+        '@referredType':
+          type: string
+        '@schemaLocation':
+          type: string
+        '@type':
+          type: string
+    RelatedPartyOrPartyRole:
+      type: object
+      description: Reference to a related party or party role linked to the entity.
+      properties:
+        partyOrPartyRole:
+            $ref: '#/components/schemas/PartyOrPartyRole'
+        role:
+          type: string
+        '@baseType':
+          type: string
+        '@referredType':
+          type: string
+        '@schemaLocation':
+          type: string
+        '@type':
+          type: string
     TimePeriod:
       type: object
+      description: A period of time, either as a deadline (endDateTime only) a startDateTime only, or both.
       properties:
         startDateTime:
           type: string
@@ -299,6 +451,117 @@ components:
           description: End of the time period in ISO 8601 format
           format: date-time
           example: "2023-12-31T23:59:59Z"
+
+    ### Characteristic's subtypes
+    CharacteristicRelationship:
+      type: object
+      description: Another Characteristic that is related to the current Characteristic;
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the characteristic.
+        relationshipType:
+          type: string
+          description: The type of relationship.
+        '@baseType':
+          type: string
+        '@schemaLocation':
+          type: string
+        '@type':
+          type: string
+
+    ### ContactMedium's subtypes
+    EmailContactMedium:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium'
+        - type: object
+          properties:
+            emailAddress:
+              type: string
+              description: Full email address in standard format.
+    FaxContactMedium:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium'
+        - type: object
+          properties:
+            faxNumber:
+              type: string
+              description: The fax number of the contact.
+    GeographicAddressContactMedium:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium'
+        - type: object
+          properties:
+            city:
+              type: string
+              example: Paris
+            contactType:
+              example: homeAddress
+            country:
+              type: string
+              example: France
+            geographicAddress:
+              $ref: '#/components/schemas/GeographicAddressRef'
+            postCode:
+              type: string
+              example: 0123
+            stateOrProvince:
+              type: string
+              description: State or province.
+            street1:
+              type: string
+              description: Describes the street.
+              example: 15 Rue des Canards
+            street2:
+              type: string
+              description: Complementary street description.
+    PhoneContactMedium:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium'
+        - type: object
+          properties:
+            '@type':
+              example: PhoneContactMedium
+            contactType:
+              example: homePhone
+            phoneNumber:
+              type: string
+              example: 01 09 75 83 51
+    SocialContactMedium:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium'
+        - type: object
+          properties:
+            socialNetworkId:
+              type: string
+              description: Identifier as a member of a social network.
+
+    ### RelatedPartyOrPartyRole's subtypes
+    PartyOrPartyRole:
+      type: object
+      description: Reference to either a party or a party role associated with the entity.
+
+    #### GeographicAddressContactMedium's subtypes
+    GeographicAddressRef:
+      type: object
+      description: Reference to a Geographic Address.
+      properties:
+        href:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        '@baseType':
+          type: string
+        '@referredType':
+          type: string
+        '@schemaLocation':
+          type: string
+        '@type':
+          type: string
+
+    # Error
     ErrorResponse:
       type: object
       properties:
@@ -321,6 +584,7 @@ components:
           enum: [ApiError]
         '@schemaLocation':
           type: string
+    ## Error's subtypes
     BadRequestResponse:
       allOf:
         - $ref: '#/components/schemas/ErrorResponse'
