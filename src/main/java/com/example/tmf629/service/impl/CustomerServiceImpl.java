@@ -1,6 +1,6 @@
 package com.example.tmf629.service.impl;
 
-import com.example.tmf629.dto.accountref.AccountRefDTO;
+import com.example.tmf629.dto.account.AccountRefDTO;
 import com.example.tmf629.dto.partyrole.CustomerDTO;
 import com.example.tmf629.dto.partyrole.PatchCustomerDTO;
 import com.example.tmf629.model.enums.CustomerStatus;

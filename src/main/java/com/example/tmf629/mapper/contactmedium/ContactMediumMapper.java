@@ -1,6 +1,6 @@
 package com.example.tmf629.mapper.contactmedium;
 
-import com.example.tmf629.dto.contactmedium.ContactMediumDTO;
+import com.example.tmf629.dto.contact.ContactMediumDTO;
 import com.example.tmf629.model.contact.ContactMedium;
 
 public class ContactMediumMapper {

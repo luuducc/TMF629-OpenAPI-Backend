@@ -1,5 +1,6 @@
-package com.example.tmf629.dto.contactmedium;
+package com.example.tmf629.dto.contact;
 
+import com.example.tmf629.model.contact.GeographicAddressRef;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 public class GeographicAddressContactMediumDTO extends ContactMediumDTO {
     private String city;
     private String country;
+    private GeographicAddressRef geographicAddress;
     private String postCode;
     private String stateOrProvince;
     private String street1;

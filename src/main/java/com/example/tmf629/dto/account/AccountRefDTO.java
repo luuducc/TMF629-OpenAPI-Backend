@@ -1,4 +1,4 @@
-package com.example.tmf629.dto.accountref;
+package com.example.tmf629.dto.account;
 
 import com.example.tmf629.model.enums.AccountType;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -11,7 +11,6 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Builder
 public class AccountRefDTO {
-    private String href;
     private String id;
     private String name;
 
@@ -22,10 +21,12 @@ public class AccountRefDTO {
     @NotNull(message = "Field 'AccountRef.@referredType' is required")
     private AccountType referredType;
 
-    @JsonProperty("@schemaLocation")
-    private String schemaLocation;
-
     @JsonProperty("@type")
     private String type;
+
+    private String href;
+
+    @JsonProperty("@schemaLocation")
+    private String schemaLocation;
 }
 

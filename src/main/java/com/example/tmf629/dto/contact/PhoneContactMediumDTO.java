@@ -1,4 +1,4 @@
-package com.example.tmf629.dto.contactmedium;
+package com.example.tmf629.dto.contact;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Data;

@@ -1,8 +1,8 @@
-package com.example.tmf629.dto.contactmedium;
+package com.example.tmf629.dto.contact;
 
+import com.example.tmf629.model.contact.SocialContactMedium;
 import com.example.tmf629.model.time.TimePeriod;
 import com.fasterxml.jackson.annotation.*;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -14,8 +14,11 @@ import lombok.experimental.SuperBuilder;
         visible = true // show the property for deserialization
 )
 @JsonSubTypes({
+        @JsonSubTypes.Type(value = EmailContactMediumDTO.class, name = "EmailContactMedium"),
+        @JsonSubTypes.Type(value = FaxContactMediumDTO.class, name = "FaxContactMedium"),
+        @JsonSubTypes.Type(value = GeographicAddressContactMediumDTO.class, name = "GeographicAddressContactMedium"),
         @JsonSubTypes.Type(value = PhoneContactMediumDTO.class, name = "PhoneContactMedium"),
-        @JsonSubTypes.Type(value = GeographicAddressContactMediumDTO.class, name = "GeographicAddressContactMedium")
+        @JsonSubTypes.Type(value = SocialContactMedium.class, name = "SocialContactMedium"),
 })
 @JsonInclude(JsonInclude.Include.NON_NULL) // Excludes null fields
 @Data
@@ -28,12 +31,11 @@ public class ContactMediumDTO {
     private TimePeriod validFor;
 
     @JsonProperty("@baseType")
-    @Builder.Default
-    private String baseType = "ContactMedium";
-
-    @JsonProperty("@schemaLocation")
-    private String schemaLocation;
+    private String baseType;
 
     @JsonProperty("@type")
     private String type;
+
+    @JsonProperty("@schemaLocation")
+    private String schemaLocation;
 }
