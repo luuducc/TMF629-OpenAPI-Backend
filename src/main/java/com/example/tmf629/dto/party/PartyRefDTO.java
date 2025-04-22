@@ -1,4 +1,4 @@
-package com.example.tmf629.dto.partyref;
+package com.example.tmf629.dto.party;
 
 import com.example.tmf629.model.enums.PartyType;
 import com.fasterxml.jackson.annotation.JsonInclude;

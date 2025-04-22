@@ -1,4 +1,4 @@
-package com.example.tmf629.dto.partyrole;
+package com.example.tmf629.dto.party;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Data;

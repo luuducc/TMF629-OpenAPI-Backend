@@ -1,8 +1,8 @@
 package com.example.tmf629.controller.impl;
 
 import com.example.tmf629.controller.CustomerController;
-import com.example.tmf629.dto.partyrole.CustomerDTO;
-import com.example.tmf629.dto.partyrole.PatchCustomerDTO;
+import com.example.tmf629.dto.party.CustomerDTO;
+import com.example.tmf629.dto.party.PatchCustomerDTO;
 import com.example.tmf629.service.CustomerService;
 import com.example.tmf629.utils.ValidationUtils;
 import jakarta.servlet.http.HttpServletRequest;

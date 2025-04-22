@@ -1,4 +1,4 @@
-package com.example.tmf629.dto.partyrole;
+package com.example.tmf629.dto.party;
 
 import com.example.tmf629.model.contact.ContactMedium;
 import com.example.tmf629.model.party.PartyRef;
