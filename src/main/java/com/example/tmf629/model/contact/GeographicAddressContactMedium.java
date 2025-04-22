@@ -1,4 +1,4 @@
-package com.example.tmf629.model.contactmedium;
+package com.example.tmf629.model.contact;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,6 +12,7 @@ import lombok.experimental.SuperBuilder;
 public class GeographicAddressContactMedium extends ContactMedium {
     private String city;
     private String country;
+    private GeographicAddressRef geographicAddress;
     private String postCode;
     private String stateOrProvince;
     // main address line - e.g. house number + street name ("123 Lê Lợi st")

@@ -1,6 +1,6 @@
 package com.example.tmf629.dto.accountref;
 
-import com.example.tmf629.enums.AccountType;
+import com.example.tmf629.model.enums.AccountType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;

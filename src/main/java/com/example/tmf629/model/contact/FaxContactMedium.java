@@ -1,4 +1,4 @@
-package com.example.tmf629.model.contactmedium;
+package com.example.tmf629.model.contact;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,6 +9,6 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 @NoArgsConstructor
-public class PhoneContactMedium extends ContactMedium {
-    private String phoneNumber;
+public class FaxContactMedium extends ContactMedium {
+    private String faxNumber;
 }

@@ -1,4 +1,4 @@
-package com.example.tmf629.common;
+package com.example.tmf629.model.time;
 
 import lombok.Data;
 

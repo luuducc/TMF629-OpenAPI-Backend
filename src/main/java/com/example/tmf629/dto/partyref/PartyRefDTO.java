@@ -1,6 +1,6 @@
 package com.example.tmf629.dto.partyref;
 
-import com.example.tmf629.enums.PartyType;
+import com.example.tmf629.model.enums.PartyType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;

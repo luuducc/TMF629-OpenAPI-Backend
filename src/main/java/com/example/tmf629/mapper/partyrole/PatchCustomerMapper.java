@@ -1,8 +1,8 @@
 package com.example.tmf629.mapper.partyrole;
 
 import com.example.tmf629.dto.partyrole.PatchCustomerDTO;
-import com.example.tmf629.enums.CustomerStatus;
-import com.example.tmf629.model.partyrole.Customer;
+import com.example.tmf629.model.enums.CustomerStatus;
+import com.example.tmf629.model.party.Customer;
 
 public class PatchCustomerMapper {
     public static Customer toEntity(PatchCustomerDTO dto) {

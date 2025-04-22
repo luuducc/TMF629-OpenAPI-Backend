@@ -6,9 +6,9 @@ import com.example.tmf629.dto.contactmedium.ContactMediumDTO;
 import com.example.tmf629.mapper.accountref.AccountRefMapper;
 import com.example.tmf629.mapper.contactmedium.ContactMediumMapper;
 import com.example.tmf629.mapper.partyref.PartyRefMapper;
-import com.example.tmf629.model.accountref.AccountRef;
-import com.example.tmf629.model.contactmedium.ContactMedium;
-import com.example.tmf629.model.partyrole.Customer;
+import com.example.tmf629.model.account.AccountRef;
+import com.example.tmf629.model.contact.ContactMedium;
+import com.example.tmf629.model.party.Customer;
 
 import java.util.Arrays;
 

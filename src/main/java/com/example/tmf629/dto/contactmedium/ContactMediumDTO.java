@@ -1,6 +1,6 @@
 package com.example.tmf629.dto.contactmedium;
 
-import com.example.tmf629.common.TimePeriod;
+import com.example.tmf629.model.time.TimePeriod;
 import com.fasterxml.jackson.annotation.*;
 import lombok.Builder;
 import lombok.Data;

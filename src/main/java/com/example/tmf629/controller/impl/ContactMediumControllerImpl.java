@@ -1,10 +1,7 @@
 package com.example.tmf629.controller.impl;
 
 import com.example.tmf629.controller.ContactMediumController;
-import com.example.tmf629.model.contactmedium.ContactMedium;
-import com.example.tmf629.model.contactmedium.GeographicAddressContactMedium;
-import com.example.tmf629.model.contactmedium.PhoneContactMedium;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.example.tmf629.model.contact.ContactMedium;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

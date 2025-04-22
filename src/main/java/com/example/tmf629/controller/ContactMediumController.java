@@ -1,6 +1,6 @@
 package com.example.tmf629.controller;
 
-import com.example.tmf629.model.contactmedium.ContactMedium;
+import com.example.tmf629.model.contact.ContactMedium;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.example.tmf629.dto.partyrole;
 
-import com.example.tmf629.model.contactmedium.ContactMedium;
-import com.example.tmf629.model.partyref.PartyRef;
+import com.example.tmf629.model.contact.ContactMedium;
+import com.example.tmf629.model.party.PartyRef;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.example.tmf629.respository.impl;
 
-import com.example.tmf629.model.partyrole.Customer;
+import com.example.tmf629.model.party.Customer;
 import com.example.tmf629.respository.CustomerRepository;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;

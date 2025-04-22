@@ -1,6 +1,6 @@
 package com.example.tmf629.respository;
 
-import com.example.tmf629.model.partyrole.Customer;
+import com.example.tmf629.model.party.Customer;
 
 import java.util.List;
 

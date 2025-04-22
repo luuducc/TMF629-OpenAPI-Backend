@@ -76,7 +76,7 @@ paths:
     patch:
       tags:
         - customer
-      summary: Partially update customer
+      summary: Partially update customer by ID
       description: Partially update customer
       parameters:
         - name: id
@@ -421,7 +421,7 @@ components:
           type: string
         '@type':
           type: string
-    RelatedPartyOrPartyRole:
+    RelatedPartyOrPartyRoleRef:
       type: object
       description: Reference to a related party or party role linked to the entity.
       properties:

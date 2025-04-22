@@ -1,4 +1,4 @@
-package com.example.tmf629.model.partyrole;
+package com.example.tmf629.model.party;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
