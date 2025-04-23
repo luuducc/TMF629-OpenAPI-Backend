@@ -1,5 +1,6 @@
 package com.example.tmf629.model.contact;
 
+import com.example.tmf629.model.enums.ContactMediumType;
 import com.example.tmf629.model.time.TimePeriod;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +21,5 @@ public class ContactMedium {
     private String baseType = "ContactMedium";
 
     @Builder.Default
-    private String type = "ContactMedium";
+    private ContactMediumType type = ContactMediumType.ContactMedium;
 }

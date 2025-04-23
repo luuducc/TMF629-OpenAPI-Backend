@@ -3,6 +3,7 @@ package com.example.tmf629.dto.party;
 import com.example.tmf629.dto.account.AccountRefDTO;
 import com.example.tmf629.dto.contact.ContactMediumDTO;
 import com.example.tmf629.model.enums.CustomerStatus;
+import com.example.tmf629.model.enums.PartyRoleType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -30,8 +31,8 @@ public class PartyRoleDTO {
     private String name;
 
     @JsonProperty("@type")
-    @NotBlank(message = "Field '@type' is required")
-    private String type;
+    @NotNull(message = "Field '@type' is required")
+    private PartyRoleType type;
 
     @JsonProperty("@baseType")
     private String baseType;

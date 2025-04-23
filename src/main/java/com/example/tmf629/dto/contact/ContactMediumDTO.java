@@ -1,5 +1,6 @@
 package com.example.tmf629.dto.contact;
 
+import com.example.tmf629.model.enums.ContactMediumType;
 import com.example.tmf629.model.time.TimePeriod;
 import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
@@ -33,7 +34,7 @@ public class ContactMediumDTO {
     private String baseType;
 
     @JsonProperty("@type")
-    private String type;
+    private ContactMediumType type;
 
     @JsonProperty("@schemaLocation")
     private String schemaLocation;
