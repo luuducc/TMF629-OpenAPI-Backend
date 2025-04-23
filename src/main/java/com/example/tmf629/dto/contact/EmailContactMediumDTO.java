@@ -1,6 +1,7 @@
 package com.example.tmf629.dto.contact;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import jakarta.validation.constraints.Email;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -12,5 +13,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 public class EmailContactMediumDTO extends ContactMediumDTO {
+    @Email(message = "Invalid email address")
     private String emailAddress;
 }

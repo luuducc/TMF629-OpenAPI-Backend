@@ -1,4 +1,4 @@
-package com.example.tmf629.mapper.accountref;
+package com.example.tmf629.mapper.account;
 
 import com.example.tmf629.dto.account.AccountRefDTO;
 import com.example.tmf629.model.account.AccountRef;
@@ -8,8 +8,8 @@ public class AccountRefMapper {
         return AccountRef.builder()
                 .id(dto.getId())
                 .name(dto.getName())
-                .referredType(dto.getReferredType())
                 .baseType(dto.getBaseType())
+                .referredType(dto.getReferredType())
                 .type(dto.getType())
                 .build();
     }
@@ -17,8 +17,8 @@ public class AccountRefMapper {
         return AccountRefDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())
-                .referredType(entity.getReferredType())
                 .baseType(entity.getBaseType())
+                .referredType(entity.getReferredType())
                 .type(entity.getType())
                 .build();
     }

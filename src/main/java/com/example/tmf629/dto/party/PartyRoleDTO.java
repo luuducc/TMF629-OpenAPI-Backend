@@ -42,6 +42,8 @@ public class PartyRoleDTO {
 
     private CustomerStatus status;
     private String id;
+
+    @Valid
     private ContactMediumDTO[] contactMedium;
     private String href;
 

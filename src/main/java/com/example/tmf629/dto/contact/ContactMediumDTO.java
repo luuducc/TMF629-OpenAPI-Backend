@@ -1,6 +1,5 @@
 package com.example.tmf629.dto.contact;
 
-import com.example.tmf629.model.contact.SocialContactMedium;
 import com.example.tmf629.model.time.TimePeriod;
 import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
@@ -18,7 +17,7 @@ import lombok.experimental.SuperBuilder;
         @JsonSubTypes.Type(value = FaxContactMediumDTO.class, name = "FaxContactMedium"),
         @JsonSubTypes.Type(value = GeographicAddressContactMediumDTO.class, name = "GeographicAddressContactMedium"),
         @JsonSubTypes.Type(value = PhoneContactMediumDTO.class, name = "PhoneContactMedium"),
-        @JsonSubTypes.Type(value = SocialContactMedium.class, name = "SocialContactMedium"),
+        @JsonSubTypes.Type(value = SocialContactMediumDTO.class, name = "SocialContactMedium"),
 })
 @JsonInclude(JsonInclude.Include.NON_NULL) // Excludes null fields
 @Data

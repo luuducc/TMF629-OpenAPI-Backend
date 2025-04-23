@@ -1,4 +1,4 @@
-package com.example.tmf629.dto.agreement;
+package com.example.tmf629.dto.characteristic;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
@@ -6,17 +6,18 @@ import lombok.Data;
 
 @Data
 @Builder
-public class AgreementRefDTO {
+public class CharacteristicDTO {
+    // schemaLocation
+    private CharacteristicRelationshipDTO characteristicRelationship;
     private String id;
     private String name;
+    private String valueType;
 
+    @JsonProperty("@baseType")
     private String baseType;
 
-    private String referredType;
-
+    @JsonProperty("@type")
     private String type;
-
-    private String href;
 
     @JsonProperty("@schemaLocation")
     private String schemaLocation;
