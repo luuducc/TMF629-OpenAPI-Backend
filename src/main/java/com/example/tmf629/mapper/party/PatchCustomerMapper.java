@@ -1,4 +1,4 @@
-package com.example.tmf629.mapper.partyrole;
+package com.example.tmf629.mapper.party;
 
 import com.example.tmf629.dto.party.PatchCustomerDTO;
 import com.example.tmf629.model.enums.CustomerStatus;

@@ -1,0 +1,25 @@
+package com.example.tmf629.mapper.party;
+
+import com.example.tmf629.dto.party.PartyRoleSpecificationRefDTO;
+import com.example.tmf629.model.party.PartyRoleSpecificationRef;
+
+public class PartyRoleSpecificationRefMapper {
+    public PartyRoleSpecificationRefDTO toDto(PartyRoleSpecificationRef entity) {
+        return PartyRoleSpecificationRefDTO.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .baseType(entity.getBaseType())
+                .referredType(entity.getReferredType())
+                .type(entity.getType())
+                .build();
+    }
+    public PartyRoleSpecificationRef toEntity(PartyRoleSpecificationRefDTO dto) {
+        return PartyRoleSpecificationRef.builder()
+                .id(dto.getId())
+                .name(dto.getName())
+                .baseType(dto.getBaseType())
+                .referredType(dto.getReferredType())
+                .type(dto.getType())
+                .build();
+    }
+}
