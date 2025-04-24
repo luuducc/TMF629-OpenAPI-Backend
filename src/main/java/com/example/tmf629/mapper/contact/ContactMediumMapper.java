@@ -5,6 +5,9 @@ import com.example.tmf629.model.contact.*;
 
 public class ContactMediumMapper {
     public static ContactMediumDTO toDto(ContactMedium entity) {
+        if (entity == null) {
+            return null;
+        }
         if (entity instanceof EmailContactMedium email) {
             return ContactMediumHelper.applyBaseFields(email, EmailContactMediumDTO.builder())
                     .emailAddress(email.getEmailAddress())
@@ -41,6 +44,9 @@ public class ContactMediumMapper {
     }
 
     public static ContactMedium toEntity(ContactMediumDTO dto) {
+        if (dto == null) {
+            return null;
+        }
         if (dto instanceof EmailContactMediumDTO email) {
             return ContactMediumHelper.applyBaseFields(email, EmailContactMedium.builder())
                     .emailAddress(email.getEmailAddress())

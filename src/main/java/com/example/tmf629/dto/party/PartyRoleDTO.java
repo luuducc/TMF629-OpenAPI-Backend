@@ -9,6 +9,7 @@ import com.example.tmf629.dto.payment.PaymentMethodRefDTO;
 import com.example.tmf629.model.enums.StatusType;
 import com.example.tmf629.model.enums.PartyRoleType;
 import com.example.tmf629.model.time.TimePeriod;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -31,6 +32,7 @@ import lombok.experimental.SuperBuilder;
 @Data
 @SuperBuilder
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PartyRoleDTO {
     @Valid // Cascades validation to nested object
     private AccountRefDTO[] account;

@@ -5,6 +5,9 @@ import com.example.tmf629.model.party.PartyRoleSpecificationRef;
 
 public class PartyRoleSpecificationRefMapper {
     public static PartyRoleSpecificationRefDTO toDto(PartyRoleSpecificationRef entity) {
+        if (entity == null) {
+            return null;
+        }
         return PartyRoleSpecificationRefDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())
@@ -14,6 +17,9 @@ public class PartyRoleSpecificationRefMapper {
                 .build();
     }
     public static PartyRoleSpecificationRef toEntity(PartyRoleSpecificationRefDTO dto) {
+        if (dto == null) {
+            return null;
+        }
         return PartyRoleSpecificationRef.builder()
                 .id(dto.getId())
                 .name(dto.getName())

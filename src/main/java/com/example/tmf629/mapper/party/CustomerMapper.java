@@ -10,7 +10,7 @@ import com.example.tmf629.dto.party.RelatedPartyOrPartyRoleRefDTO;
 import com.example.tmf629.dto.payment.PaymentMethodRefDTO;
 import com.example.tmf629.mapper.account.AccountRefMapper;
 import com.example.tmf629.mapper.agreement.AgreementRefMapper;
-import com.example.tmf629.mapper.characteristic.CharacteristicMaper;
+import com.example.tmf629.mapper.characteristic.CharacteristicMapper;
 import com.example.tmf629.mapper.contact.ContactMediumMapper;
 import com.example.tmf629.mapper.credit.CreditProfileMapper;
 import com.example.tmf629.mapper.payment.PaymentMethodRefMapper;
@@ -29,9 +29,12 @@ import java.util.function.IntFunction;
 
 public class CustomerMapper {
     public static Customer toEntity(CustomerDTO dto) {
+        if (dto == null) {
+            return null;
+        }
         AccountRef[] account = CustomerHelper.mapArray(dto.getAccount(), AccountRefMapper::toEntity, AccountRef[]::new);
         AgreementRef[] agreement = CustomerHelper.mapArray(dto.getAgreement(), AgreementRefMapper::toEntity, AgreementRef[]::new);
-        Characteristic[] characteristic = CustomerHelper.mapArray(dto.getCharacteristic(), CharacteristicMaper::toEntity, Characteristic[]::new);
+        Characteristic[] characteristic = CustomerHelper.mapArray(dto.getCharacteristic(), CharacteristicMapper::toEntity, Characteristic[]::new);
         ContactMedium[] contactMedium = CustomerHelper.mapArray(dto.getContactMedium(), ContactMediumMapper::toEntity, ContactMedium[]::new);
         CreditProfile[] creditProfile = CustomerHelper.mapArray(dto.getCreditProfile(), CreditProfileMapper::toEntity, CreditProfile[]::new);
         PaymentMethodRef[] paymentMethod = CustomerHelper.mapArray(dto.getPaymentMethod(), PaymentMethodRefMapper::toEntity, PaymentMethodRef[]::new);
@@ -59,9 +62,12 @@ public class CustomerMapper {
     }
 
     public static CustomerDTO toDTO(Customer entity) {
+        if (entity == null) {
+            return null;
+        }
         AccountRefDTO[] account = CustomerHelper.mapArray(entity.getAccount(), AccountRefMapper::toDto, AccountRefDTO[]::new);
         AgreementRefDTO[] agreement = CustomerHelper.mapArray(entity.getAgreement(), AgreementRefMapper::toDto, AgreementRefDTO[]::new);
-        CharacteristicDTO[] characteristic = CustomerHelper.mapArray(entity.getCharacteristic(), CharacteristicMaper::toDto, CharacteristicDTO[]::new);
+        CharacteristicDTO[] characteristic = CustomerHelper.mapArray(entity.getCharacteristic(), CharacteristicMapper::toDto, CharacteristicDTO[]::new);
         ContactMediumDTO[] contactMedium = CustomerHelper.mapArray(entity.getContactMedium(), ContactMediumMapper::toDto, ContactMediumDTO[]::new);
         CreditProfileDTO[] creditProfile = CustomerHelper.mapArray(entity.getCreditProfile(), CreditProfileMapper::toDto, CreditProfileDTO[]::new);
         PaymentMethodRefDTO[] paymentMethod = CustomerHelper.mapArray(entity.getPaymentMethod(), PaymentMethodRefMapper::toDto, PaymentMethodRefDTO[]::new);

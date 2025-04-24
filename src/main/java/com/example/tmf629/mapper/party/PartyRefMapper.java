@@ -5,6 +5,9 @@ import com.example.tmf629.model.party.PartyRef;
 
 public class PartyRefMapper {
     public static PartyRef toEntity(PartyRefDTO dto) {
+        if (dto == null) {
+            return null;
+        }
         return PartyRef.builder()
                 .id(dto.getId())
                 .name(dto.getName())
@@ -14,6 +17,9 @@ public class PartyRefMapper {
                 .build();
     }
     public static PartyRefDTO toDto(PartyRef entity) {
+        if (entity == null) {
+            return null;
+        }
         return PartyRefDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())

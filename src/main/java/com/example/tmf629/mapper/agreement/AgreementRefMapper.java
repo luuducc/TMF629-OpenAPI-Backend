@@ -5,6 +5,9 @@ import com.example.tmf629.model.agreement.AgreementRef;
 
 public class AgreementRefMapper {
     public static AgreementRefDTO toDto(AgreementRef entity) {
+        if (entity == null) {
+            return null;
+        }
         return AgreementRefDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())
@@ -14,6 +17,9 @@ public class AgreementRefMapper {
                 .build();
     }
     public static AgreementRef toEntity(AgreementRefDTO dto) {
+        if (dto == null) {
+            return null;
+        }
         return AgreementRef.builder()
                 .id(dto.getId())
                 .name(dto.getName())

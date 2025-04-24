@@ -5,6 +5,9 @@ import com.example.tmf629.model.characteristic.CharacteristicRelationship;
 
 public class CharacteristicRelationshipMapper {
     public static CharacteristicRelationshipDTO toDTO(CharacteristicRelationship entity) {
+        if (entity == null) {
+            return null;
+        }
         return CharacteristicRelationshipDTO.builder()
                 .id(entity.getId())
                 .relationshipType(entity.getRelationshipType())
@@ -13,6 +16,9 @@ public class CharacteristicRelationshipMapper {
                 .build();
     }
     public static CharacteristicRelationship toEntity(CharacteristicRelationshipDTO dto) {
+        if (dto == null) {
+            return null;
+        }
         return CharacteristicRelationship.builder()
                 .id(dto.getId())
                 .relationshipType(dto.getRelationshipType())

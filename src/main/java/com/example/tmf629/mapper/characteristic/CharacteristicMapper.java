@@ -3,8 +3,11 @@ package com.example.tmf629.mapper.characteristic;
 import com.example.tmf629.dto.characteristic.CharacteristicDTO;
 import com.example.tmf629.model.characteristic.Characteristic;
 
-public class CharacteristicMaper {
+public class CharacteristicMapper {
     public static CharacteristicDTO toDto(Characteristic entity) {
+        if (entity == null) {
+            return null;
+        }
         return CharacteristicDTO.builder()
                 .characteristicRelationship(
                         CharacteristicRelationshipMapper.toDTO(entity.getCharacteristicRelationship())
@@ -17,6 +20,9 @@ public class CharacteristicMaper {
                 .build();
     }
     public static Characteristic toEntity(CharacteristicDTO dto) {
+        if (dto == null) {
+            return null;
+        }
         return Characteristic.builder()
                 .characteristicRelationship(
                         CharacteristicRelationshipMapper.toEntity(dto.getCharacteristicRelationship())

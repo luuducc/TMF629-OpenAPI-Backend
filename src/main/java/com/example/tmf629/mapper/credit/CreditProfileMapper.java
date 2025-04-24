@@ -5,6 +5,9 @@ import com.example.tmf629.model.credit.CreditProfile;
 
 public class CreditProfileMapper {
     public static CreditProfileDTO toDto(CreditProfile entity) {
+        if (entity == null) {
+            return null;
+        }
         return CreditProfileDTO.builder()
                 .creditProfileDate(entity.getCreditProfileDate())
                 .creditRiskRating(entity.getCreditRiskRating())
@@ -13,6 +16,9 @@ public class CreditProfileMapper {
                 .build();
     }
     public static CreditProfile toEntity(CreditProfileDTO dto) {
+        if (dto == null) {
+            return null;
+        }
         return CreditProfile.builder()
                 .creditProfileDate(dto.getCreditProfileDate())
                 .creditRiskRating(dto.getCreditRiskRating())

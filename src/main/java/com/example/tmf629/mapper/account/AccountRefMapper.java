@@ -5,6 +5,9 @@ import com.example.tmf629.model.account.AccountRef;
 
 public class AccountRefMapper {
     public static AccountRef toEntity(AccountRefDTO dto) {
+        if (dto == null) {
+            return null;
+        }
         return AccountRef.builder()
                 .id(dto.getId())
                 .name(dto.getName())
@@ -14,6 +17,9 @@ public class AccountRefMapper {
                 .build();
     }
     public static AccountRefDTO toDto(AccountRef entity) {
+        if (entity == null) {
+            return null;
+        }
         return AccountRefDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())
