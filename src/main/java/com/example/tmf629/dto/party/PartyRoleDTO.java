@@ -1,9 +1,14 @@
 package com.example.tmf629.dto.party;
 
 import com.example.tmf629.dto.account.AccountRefDTO;
+import com.example.tmf629.dto.agreement.AgreementRefDTO;
+import com.example.tmf629.dto.characteristic.CharacteristicDTO;
 import com.example.tmf629.dto.contact.ContactMediumDTO;
-import com.example.tmf629.model.enums.CustomerStatus;
+import com.example.tmf629.dto.credit.CreditProfileDTO;
+import com.example.tmf629.model.enums.StatusType;
 import com.example.tmf629.model.enums.PartyRoleType;
+import com.example.tmf629.model.payment.PaymentMethodRef;
+import com.example.tmf629.model.time.TimePeriod;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -27,27 +32,44 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 public class PartyRoleDTO {
-    @NotBlank(message = "Field 'name' is required")
-    private String name;
+    @Valid
+    private AccountRefDTO[] account;
 
-    @JsonProperty("@type")
-    @NotNull(message = "Field '@type' is required")
-    private PartyRoleType type;
+    private AgreementRefDTO[] agreement;
+    private CharacteristicDTO[] characteristic;
 
-    @JsonProperty("@baseType")
-    private String baseType;
+    @Valid
+    private ContactMediumDTO[] contactMedium;
+
+    private CreditProfileDTO[] creditProfile;
+    private String description;
 
     @NotNull(message = "Field 'engagedParty' is required")
     @Valid // Cascades validation to nested object
     private PartyRefDTO engagedParty;
 
-    private CustomerStatus status;
+    private String href;
     private String id;
 
-    @Valid
-    private ContactMediumDTO[] contactMedium;
-    private String href;
+    @NotBlank(message = "Field 'name' is required")
+    private String name;
 
-    @Valid
-    private AccountRefDTO[] account;
+    private PartyRoleSpecificationRefDTO partyRoleSpecification;
+    private PaymentMethodRef[] paymentMethod;
+    private RelatedPartyOrPartyRoleRefDTO[] relatedParty;
+    private String role;
+
+    private StatusType status;
+    private String statusReason;
+    private TimePeriod validFor;
+
+    @JsonProperty("@baseType")
+    private String baseType;
+
+    @JsonProperty("@schemaLocation")
+    private String schemaLocation;
+
+    @JsonProperty("@type")
+    @NotNull(message = "Field '@type' is required")
+    private PartyRoleType type;
 }
