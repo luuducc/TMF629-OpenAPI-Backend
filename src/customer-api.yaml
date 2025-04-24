@@ -10,6 +10,41 @@ tags:
     description: Customer's operations
 paths:
   /customer:
+    get:
+      tags:
+        - customer
+      summary: Get all customers
+      description: Get all customers
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          required: false
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Requested index for start of resources to be provided in response
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: limit
+          in: query
+          description: Requested number of resources to be provided in response
+          required: false
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: Successfully get all customers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerResponse'
     post:
       tags:
         - customer
@@ -33,20 +68,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadRequestResponse'
-    get:
-      tags:
-        - customer
-      summary: Get all customers
-      description: Get all customers
-      responses:
-        '200':
-          description: Successfully get all customers
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/CustomerResponse'
   /customer/{id}:
     get:
       tags:
@@ -58,6 +79,12 @@ paths:
           in: path
           description: ID of customer
           required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated properties to be provided in response
+          required: false
           schema:
             type: string
       responses:
@@ -197,7 +224,7 @@ components:
           type: array
           description: List of parties or party roles related to this customer (e.g., account manager, billing contact).
           items:
-            $ref: '#/components/schemas/RelatedPartyOrPartyRole'
+            $ref: '#/components/schemas/RelatedPartyOrPartyRoleRef'
         role:
           type: string
           description: Role of the engaged party, optionally refining or replacing partyRoleSpecification.
@@ -452,7 +479,7 @@ components:
           format: date-time
           example: "2023-12-31T23:59:59Z"
 
-    ### Characteristic's subtypes
+    ### Characteristic subtypes
     CharacteristicRelationship:
       type: object
       description: Another Characteristic that is related to the current Characteristic;
