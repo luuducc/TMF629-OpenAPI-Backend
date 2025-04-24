@@ -1,7 +1,6 @@
 package com.example.tmf629.controller;
 
 import com.example.tmf629.dto.party.CustomerDTO;
-import com.example.tmf629.dto.party.PatchCustomerDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 
