@@ -11,6 +11,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -114,24 +117,29 @@ public class GlobalExceptionHandler {
         Class<?> targetType = ex.getTargetType();
         String invalidValue = ex.getValue().toString();
 
-        StringBuilder validValues = new StringBuilder();
+        String message;
+
         if (targetType.isEnum()) {
             Object[] constants = targetType.getEnumConstants();
-
-            for (int i = 0; i < constants.length; i++) {
-                validValues.append(constants[i].toString());
-                if (i < constants.length - 1) {
-                    validValues.append(", ");
-                }
-            }
+            String validValues = Arrays.stream(constants)
+                    .map(Object::toString)
+                    .collect(Collectors.joining(", "));
+            message = String.format("Invalid value '%s' for field '%s'. Allowed values: %s",
+                    invalidValue, fieldName, validValues);
+        } else if (targetType == LocalDateTime.class || targetType == LocalDate.class) {
+            message = String.format("Invalid date format for field '%s'. Expected format: %s",
+                    fieldName, targetType.getSimpleName());
+        } else {
+            message = String.format("Invalid value '%s' for field '%s'. Expected type: %s",
+                    invalidValue, fieldName, targetType.getSimpleName());
         }
+
         TmfErrorResponse response = TmfErrorResponse.builder()
                 .type("ValidationError")
                 .code("400")
                 .reason("Invalid input provided")
                 .schemaLocation("https://example.com/error-schema")
-                .message(String.format("Invalid value '%s' for field '%s'. Allowed values: %s",
-                        invalidValue, fieldName, validValues))
+                .message(message)
                 .status("400")
                 .referenceError("https://example.com/errors/bad-request")
                 .build();

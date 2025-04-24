@@ -23,9 +23,9 @@ public class PartyRoleSpecificationRefMapper {
         return PartyRoleSpecificationRef.builder()
                 .id(dto.getId())
                 .name(dto.getName())
-                .baseType(dto.getBaseType())
+//                .baseType(dto.getBaseType())
                 .referredType(dto.getReferredType())
-                .type(dto.getType())
+//                .type(dto.getType())
                 .build();
     }
 }

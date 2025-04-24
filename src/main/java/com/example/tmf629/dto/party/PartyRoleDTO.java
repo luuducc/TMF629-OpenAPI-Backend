@@ -43,7 +43,9 @@ public class PartyRoleDTO {
     @Valid
     private ContactMediumDTO[] contactMedium;
 
+    @Valid
     private CreditProfileDTO[] creditProfile;
+
     private String description;
 
     @NotNull(message = "Field 'engagedParty' is required")
@@ -61,6 +63,8 @@ public class PartyRoleDTO {
     private String role;
     private StatusType status;
     private String statusReason;
+
+    @Valid
     private TimePeriod validFor;
 
     @JsonProperty("@baseType")

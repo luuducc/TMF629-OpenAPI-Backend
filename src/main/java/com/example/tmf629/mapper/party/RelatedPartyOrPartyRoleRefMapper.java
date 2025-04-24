@@ -26,8 +26,8 @@ public class RelatedPartyOrPartyRoleRefMapper {
                         PartyRefMapper.toEntity(dto.getPartyOrPartyRole())
                 )
                 .role(dto.getRole())
-                .baseType(dto.getBaseType())
-                .type(dto.getType())
+//                .baseType(dto.getBaseType())
+//                .type(dto.getType())
                 .build();
     }
 }

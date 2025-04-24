@@ -1,13 +1,16 @@
 package com.example.tmf629.model.time;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Data
 public class TimePeriod {
-    @NotBlank(message = "Field 'startDateTime' is required")
-    private String startDateTime;
+    @NotNull(message = "Field 'startDateTime' is required")
+    private LocalDateTime startDateTime;
 
-    @NotBlank(message = "Field 'endDateTime' is required")
-    private String endDateTime;
+    @NotNull(message = "Field 'endDateTime' is required")
+    private LocalDateTime endDateTime;
 }
