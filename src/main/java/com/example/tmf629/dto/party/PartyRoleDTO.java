@@ -5,9 +5,9 @@ import com.example.tmf629.dto.agreement.AgreementRefDTO;
 import com.example.tmf629.dto.characteristic.CharacteristicDTO;
 import com.example.tmf629.dto.contact.ContactMediumDTO;
 import com.example.tmf629.dto.credit.CreditProfileDTO;
+import com.example.tmf629.dto.payment.PaymentMethodRefDTO;
 import com.example.tmf629.model.enums.StatusType;
 import com.example.tmf629.model.enums.PartyRoleType;
-import com.example.tmf629.model.payment.PaymentMethodRef;
 import com.example.tmf629.model.time.TimePeriod;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -32,7 +32,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 public class PartyRoleDTO {
-    @Valid
+    @Valid // Cascades validation to nested object
     private AccountRefDTO[] account;
 
     private AgreementRefDTO[] agreement;
@@ -45,7 +45,6 @@ public class PartyRoleDTO {
     private String description;
 
     @NotNull(message = "Field 'engagedParty' is required")
-    @Valid // Cascades validation to nested object
     private PartyRefDTO engagedParty;
 
     private String href;
@@ -55,10 +54,9 @@ public class PartyRoleDTO {
     private String name;
 
     private PartyRoleSpecificationRefDTO partyRoleSpecification;
-    private PaymentMethodRef[] paymentMethod;
+    private PaymentMethodRefDTO[] paymentMethod;
     private RelatedPartyOrPartyRoleRefDTO[] relatedParty;
     private String role;
-
     private StatusType status;
     private String statusReason;
     private TimePeriod validFor;

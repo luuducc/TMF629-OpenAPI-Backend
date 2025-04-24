@@ -4,7 +4,7 @@ import com.example.tmf629.dto.agreement.AgreementRefDTO;
 import com.example.tmf629.model.agreement.AgreementRef;
 
 public class AgreementRefMapper {
-    public static AgreementRefDTO toDTO(AgreementRef entity) {
+    public static AgreementRefDTO toDto(AgreementRef entity) {
         return AgreementRefDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())

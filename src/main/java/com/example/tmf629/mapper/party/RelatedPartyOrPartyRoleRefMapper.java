@@ -4,7 +4,7 @@ import com.example.tmf629.dto.party.RelatedPartyOrPartyRoleRefDTO;
 import com.example.tmf629.model.party.RelatedPartyOrPartyRoleRef;
 
 public class RelatedPartyOrPartyRoleRefMapper {
-    public RelatedPartyOrPartyRoleRefDTO toDto(RelatedPartyOrPartyRoleRef entity) {
+    public static RelatedPartyOrPartyRoleRefDTO toDto(RelatedPartyOrPartyRoleRef entity) {
         return RelatedPartyOrPartyRoleRefDTO.builder()
                 .partyOrPartyRole(
                         PartyRefMapper.toDto(entity.getPartyOrPartyRole())
@@ -14,7 +14,7 @@ public class RelatedPartyOrPartyRoleRefMapper {
                 .type(entity.getType())
                 .build();
     }
-    public RelatedPartyOrPartyRoleRef toEntity(RelatedPartyOrPartyRoleRefDTO dto) {
+    public static RelatedPartyOrPartyRoleRef toEntity(RelatedPartyOrPartyRoleRefDTO dto) {
         return RelatedPartyOrPartyRoleRef.builder()
                 .partyOrPartyRole(
                         PartyRefMapper.toEntity(dto.getPartyOrPartyRole())

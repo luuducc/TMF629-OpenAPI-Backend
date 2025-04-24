@@ -4,7 +4,7 @@ import com.example.tmf629.dto.characteristic.CharacteristicDTO;
 import com.example.tmf629.model.characteristic.Characteristic;
 
 public class CharacteristicMaper {
-    public static CharacteristicDTO toDTO(Characteristic entity) {
+    public static CharacteristicDTO toDto(Characteristic entity) {
         return CharacteristicDTO.builder()
                 .characteristicRelationship(
                         CharacteristicRelationshipMapper.toDTO(entity.getCharacteristicRelationship())

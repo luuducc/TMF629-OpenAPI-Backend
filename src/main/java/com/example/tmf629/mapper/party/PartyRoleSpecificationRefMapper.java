@@ -4,7 +4,7 @@ import com.example.tmf629.dto.party.PartyRoleSpecificationRefDTO;
 import com.example.tmf629.model.party.PartyRoleSpecificationRef;
 
 public class PartyRoleSpecificationRefMapper {
-    public PartyRoleSpecificationRefDTO toDto(PartyRoleSpecificationRef entity) {
+    public static PartyRoleSpecificationRefDTO toDto(PartyRoleSpecificationRef entity) {
         return PartyRoleSpecificationRefDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())
@@ -13,7 +13,7 @@ public class PartyRoleSpecificationRefMapper {
                 .type(entity.getType())
                 .build();
     }
-    public PartyRoleSpecificationRef toEntity(PartyRoleSpecificationRefDTO dto) {
+    public static PartyRoleSpecificationRef toEntity(PartyRoleSpecificationRefDTO dto) {
         return PartyRoleSpecificationRef.builder()
                 .id(dto.getId())
                 .name(dto.getName())

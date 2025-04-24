@@ -4,7 +4,7 @@ import com.example.tmf629.dto.contact.*;
 import com.example.tmf629.model.contact.*;
 
 public class ContactMediumMapper {
-    public static ContactMediumDTO toDTO(ContactMedium entity) {
+    public static ContactMediumDTO toDto(ContactMedium entity) {
         if (entity instanceof EmailContactMedium email) {
             return ContactMediumHelper.applyBaseFields(email, EmailContactMediumDTO.builder())
                     .emailAddress(email.getEmailAddress())

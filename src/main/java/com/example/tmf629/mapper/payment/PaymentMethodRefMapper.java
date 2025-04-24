@@ -4,7 +4,7 @@ import com.example.tmf629.dto.payment.PaymentMethodRefDTO;
 import com.example.tmf629.model.payment.PaymentMethodRef;
 
 public class PaymentMethodRefMapper {
-    public PaymentMethodRefDTO toDto(PaymentMethodRef entity) {
+    public static PaymentMethodRefDTO toDto(PaymentMethodRef entity) {
         return PaymentMethodRefDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())
@@ -13,7 +13,7 @@ public class PaymentMethodRefMapper {
                 .type(entity.getType())
                 .build();
     }
-    public PaymentMethodRef toEntity(PaymentMethodRefDTO dto) {
+    public static PaymentMethodRef toEntity(PaymentMethodRefDTO dto) {
         return PaymentMethodRef.builder()
                 .id(dto.getId())
                 .name(dto.getName())
