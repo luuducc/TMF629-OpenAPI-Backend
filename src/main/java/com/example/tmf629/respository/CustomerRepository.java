@@ -7,6 +7,7 @@ import java.util.List;
 public interface CustomerRepository {
     Customer save(Customer customer);
     List<Customer> findAll();
+    List<Customer> findWithFilter(List<String> fields, int offset, int limit);
     Customer findById(String id);
     Customer updateById(String id, Customer customer);
     void deleteById(String id);

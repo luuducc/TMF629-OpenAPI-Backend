@@ -33,8 +33,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDTO> getAllCustomers() {
-        return customerRepository.findAll().stream()
+    public List<CustomerDTO> getCustomersWithPagination(List<String> fields, int offset, int limit) {
+        return customerRepository.findWithFilter(fields, offset, limit).stream()
                 .map(CustomerMapper::toDTO).collect(Collectors.toList());
     }
 

@@ -2,6 +2,7 @@ package com.example.tmf629.controller.impl;
 
 import com.example.tmf629.controller.CustomerController;
 import com.example.tmf629.dto.party.CustomerDTO;
+import com.example.tmf629.pagination.PageResponse;
 import com.example.tmf629.service.CustomerService;
 import com.example.tmf629.utils.ValidationUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,15 +38,21 @@ public class CustomerControllerImpl implements CustomerController {
     // Get all customer
     @Override
     @GetMapping
-    public ResponseEntity<List<CustomerDTO>> getAllCustomers(HttpServletRequest request) {
-        List<CustomerDTO> customerDTOS = customerService.getAllCustomers();
+    public ResponseEntity<PageResponse<CustomerDTO>> getCustomersWithPagination(
+            HttpServletRequest request,
+            @RequestParam(required = false) List<String> fields,
+            @RequestParam(defaultValue = "0") int offset,
+            @RequestParam(defaultValue = "20") int limit
+    ) {
+        List<CustomerDTO> customerDTOS = customerService.getCustomersWithPagination(fields, offset, limit);
+        int count = customerDTOS.size();
 
         String baseUrl = request.getRequestURL().toString();
         customerDTOS.forEach(customerDTO -> {
             customerDTO.setHref(baseUrl + "/" + customerDTO.getId());
         });
-
-        return ResponseEntity.ok(customerDTOS);
+        PageResponse<CustomerDTO> response = new PageResponse<>(count, customerDTOS);
+        return ResponseEntity.ok(response);
     }
 
     // Get customer by ID

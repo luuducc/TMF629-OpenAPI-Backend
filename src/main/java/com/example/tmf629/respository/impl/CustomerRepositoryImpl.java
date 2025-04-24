@@ -28,6 +28,16 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
+    public List<Customer> findWithFilter(List<String> fields, int offset, int limit) {
+        Query query = new Query().skip(offset).limit(limit);
+
+        if (fields != null && !fields.isEmpty()) {
+            fields.forEach(field -> query.fields().include(field));
+        }
+        return mongoTemplate.find(query, Customer.class);
+    }
+
+    @Override
     public Customer findById(String id) {
         return mongoTemplate.findById(id, Customer.class);
     }
