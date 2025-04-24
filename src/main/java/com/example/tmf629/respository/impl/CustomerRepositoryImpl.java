@@ -37,21 +37,22 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         Query query = new Query(Criteria.where("id").is(id));
         Update update = new Update();
 
-        if (customer.getName() != null) {
-            update.set("name", customer.getName());
-        }
+        setIfNotNull(update, "account", customer.getAccount());
+        setIfNotNull(update, "agreement", customer.getAgreement());
+        setIfNotNull(update, "characteristic", customer.getCharacteristic());
+        setIfNotNull(update, "contactMedium", customer.getContactMedium());
+        setIfNotNull(update, "creditProfile", customer.getCreditProfile());
+        setIfNotNull(update, "description", customer.getDescription());
+        setIfNotNull(update, "engagedParty", customer.getEngagedParty());
+        setIfNotNull(update, "name", customer.getName());
+        setIfNotNull(update, "partyRoleSpecification", customer.getPartyRoleSpecification ());
+        setIfNotNull(update, "paymentMethod", customer.getPaymentMethod());
+        setIfNotNull(update, "relatedParty", customer.getRelatedParty());
+        setIfNotNull(update, "role", customer.getRole());
+        setIfNotNull(update, "status", customer.getStatus());
+        setIfNotNull(update, "statusReason", customer.getStatusReason());
+        setIfNotNull(update, "validFor", customer.getValidFor());
 
-        if (customer.getEngagedParty() != null) {
-            update.set("engagedParty", customer.getEngagedParty());
-        }
-
-        if (customer.getStatus() != null) {
-            update.set("status", customer.getStatus());
-        }
-
-        if (customer.getContactMedium() != null) {
-            update.set("contactMedium", customer.getContactMedium());
-        }
         UpdateResult result = mongoTemplate.updateFirst(query, update, Customer.class);
 
         System.out.println("result: " + result.getModifiedCount());
@@ -70,5 +71,12 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public boolean existsById(String id) {
         Query query = new Query(Criteria.where("id").is(id));
         return mongoTemplate.exists(query, Customer.class);
+    }
+
+    // Helper methods
+    private <T> void setIfNotNull(Update update, String fieldName, T value) {
+        if (value != null) {
+            update.set(fieldName, value);
+        }
     }
 }
