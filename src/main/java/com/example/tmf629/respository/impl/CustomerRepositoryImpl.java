@@ -33,13 +33,28 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
         if (fields != null && !fields.isEmpty()) {
             fields.forEach(field -> query.fields().include(field));
+            // Optionally exclude _id if not explicitly requested
+            if (!fields.contains("id") && !fields.contains("_id")) {
+                query.fields().exclude("_id");
+            }
         }
         return mongoTemplate.find(query, Customer.class);
     }
 
     @Override
-    public Customer findById(String id) {
-        return mongoTemplate.findById(id, Customer.class);
+    public Customer findById(String id, List<String> fields) {
+        Query query = new Query(Criteria.where("id").is(id));
+
+        if (fields != null && !fields.isEmpty()) {
+            fields.forEach(field -> query.fields().include(field));
+
+            // Optionally exclude _id if not explicitly requested
+            if (!fields.contains("id") && !fields.contains("_id")) {
+                query.fields().exclude("_id");
+            }
+        }
+
+        return mongoTemplate.findOne(query, Customer.class);
     }
 
     @Override

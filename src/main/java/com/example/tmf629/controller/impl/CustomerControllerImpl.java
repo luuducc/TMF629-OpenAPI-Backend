@@ -35,7 +35,7 @@ public class CustomerControllerImpl implements CustomerController {
         return ResponseEntity.created(URI.create(href)).body(createdUser);
     }
 
-    // Get all customer
+    // Get customer with pagination
     @Override
     @GetMapping
     public ResponseEntity<PageResponse<CustomerDTO>> getCustomersWithPagination(
@@ -58,9 +58,12 @@ public class CustomerControllerImpl implements CustomerController {
     // Get customer by ID
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable String id, HttpServletRequest request) {
+    public ResponseEntity<CustomerDTO> getCustomerById(
+            @PathVariable String id,
+            @RequestParam(required = false) List<String> fields,
+            HttpServletRequest request) {
         ValidationUtils.checkID(id);
-        CustomerDTO customerDTO = customerService.getCustomerById(id);
+        CustomerDTO customerDTO = customerService.getCustomerById(id, fields);
         customerDTO.setHref(request.getRequestURL().toString());
         return ResponseEntity.ok(customerDTO);
     }

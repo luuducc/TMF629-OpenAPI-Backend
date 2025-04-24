@@ -39,8 +39,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO getCustomerById(String id) {
-        Customer customer = customerRepository.findById(id);
+    public CustomerDTO getCustomerById(String id, List<String> fields) {
+        Customer customer = customerRepository.findById(id, fields);
         if (customer == null) {
             throw new IDNotFoundException("ID " + id + " not found");
         }
