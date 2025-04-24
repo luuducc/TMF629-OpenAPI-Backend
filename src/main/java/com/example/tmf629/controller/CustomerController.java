@@ -11,6 +11,6 @@ public interface CustomerController {
     ResponseEntity<CustomerDTO> createCustomer(CustomerDTO dto, HttpServletRequest request);
     ResponseEntity<List<CustomerDTO>> getAllCustomers(HttpServletRequest request);
     ResponseEntity<CustomerDTO> getCustomerById(String id, HttpServletRequest request);
-    ResponseEntity<CustomerDTO> patchCustomer(String id, PatchCustomerDTO dto, HttpServletRequest request);
+    ResponseEntity<CustomerDTO> patchCustomer(String id, CustomerDTO dto, HttpServletRequest request);
     ResponseEntity<Void> deleteCustomerById(String id);
 }

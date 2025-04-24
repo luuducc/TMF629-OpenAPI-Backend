@@ -1,8 +1,6 @@
 package com.example.tmf629.service.impl;
 
-import com.example.tmf629.dto.account.AccountRefDTO;
 import com.example.tmf629.dto.party.CustomerDTO;
-import com.example.tmf629.dto.party.PatchCustomerDTO;
 import com.example.tmf629.model.enums.StatusType;
 import com.example.tmf629.exception.IDNotFoundException;
 import com.example.tmf629.mapper.party.CustomerMapper;
@@ -10,6 +8,7 @@ import com.example.tmf629.mapper.party.PatchCustomerMapper;
 import com.example.tmf629.model.party.Customer;
 import com.example.tmf629.respository.CustomerRepository;
 import com.example.tmf629.service.CustomerService;
+import com.example.tmf629.utils.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,19 +21,13 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
     @Override
     public CustomerDTO createCustomer(CustomerDTO dto) {
+        ValidationUtils.requireNotBlank(dto.getName(), "name");
+        ValidationUtils.requireNotBlank(String.valueOf(dto.getType()), "@type");
+        ValidationUtils.requireNotNull(dto.getEngagedParty(), "engagedParty");
+
         // Set status to Created
         dto.setStatus(StatusType.Created);
 
-        // Set default value for account
-        AccountRefDTO[] accounts = dto.getAccount();
-        for (AccountRefDTO account : accounts != null ? accounts : new AccountRefDTO[]{}) {
-            if (account.getBaseType() == null) {
-                account.setBaseType("AccountRef");
-            }
-            if (account.getType() == null) {
-                account.setType("AccountRef");
-            }
-        }
         Customer customer = customerRepository.save(CustomerMapper.toEntity(dto));
         return CustomerMapper.toDTO(customer);
     }
@@ -55,11 +48,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO patchCustomerById(String id, PatchCustomerDTO customerDTO) {
+    public CustomerDTO patchCustomerById(String id, CustomerDTO dto) {
         if (!customerRepository.existsById(id)) {
             throw new IDNotFoundException("ID " + id + " not exists");
         }
-        Customer customer = PatchCustomerMapper.toEntity(customerDTO);
+        Customer customer = PatchCustomerMapper.toEntity(dto);
         Customer updatedCustomer = customerRepository.updateById(id, customer);
         return CustomerMapper.toDTO(updatedCustomer);
     }

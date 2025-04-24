@@ -48,15 +48,12 @@ public class PartyRoleDTO {
 
     private String description;
 
-    @NotNull(message = "Field 'engagedParty' is required")
+    @Valid
     private PartyRefDTO engagedParty;
 
     private String href;
     private String id;
-
-    @NotBlank(message = "Field 'name' is required")
     private String name;
-
     private PartyRoleSpecificationRefDTO partyRoleSpecification;
     private PaymentMethodRefDTO[] paymentMethod;
     private RelatedPartyOrPartyRoleRefDTO[] relatedParty;
@@ -74,6 +71,5 @@ public class PartyRoleDTO {
     private String schemaLocation;
 
     @JsonProperty("@type")
-    @NotNull(message = "Field '@type' is required")
     private PartyRoleType type;
 }

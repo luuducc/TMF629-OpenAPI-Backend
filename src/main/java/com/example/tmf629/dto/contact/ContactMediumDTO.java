@@ -3,6 +3,7 @@ package com.example.tmf629.dto.contact;
 import com.example.tmf629.model.enums.ContactMediumType;
 import com.example.tmf629.model.time.TimePeriod;
 import com.fasterxml.jackson.annotation.*;
+import jakarta.validation.Valid;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -28,6 +29,8 @@ public class ContactMediumDTO {
     private String contactType;
     private String id;
     private boolean preferred;
+
+    @Valid
     private TimePeriod validFor;
 
     @JsonProperty("@baseType")

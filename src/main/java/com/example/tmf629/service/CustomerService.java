@@ -9,6 +9,6 @@ public interface CustomerService {
     CustomerDTO createCustomer(CustomerDTO customerDTO);
     List<CustomerDTO> getAllCustomers();
     CustomerDTO getCustomerById(String id);
-    CustomerDTO patchCustomerById(String id, PatchCustomerDTO customerDTO);
+    CustomerDTO patchCustomerById(String id, CustomerDTO customerDTO);
     void deleteCustomerById(String id);
 }
