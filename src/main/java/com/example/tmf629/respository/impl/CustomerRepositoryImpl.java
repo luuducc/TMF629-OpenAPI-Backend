@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Repository
 public class CustomerRepositoryImpl implements CustomerRepository {
@@ -28,8 +29,12 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public List<Customer> findWithFilter(List<String> fields, int offset, int limit) {
+    public List<Customer> findWithFilter(List<String> fields, int offset, int limit, String name) {
         Query query = new Query().skip(offset).limit(limit);
+        if (name != null && !name.isEmpty()) {
+            // Use regex for "contains" search, case-insensitive
+            query.addCriteria(Criteria.where("name").regex(".*" + Pattern.quote(name) + ".*", "i"));
+        }
 
         if (fields != null && !fields.isEmpty()) {
             fields.forEach(field -> query.fields().include(field));

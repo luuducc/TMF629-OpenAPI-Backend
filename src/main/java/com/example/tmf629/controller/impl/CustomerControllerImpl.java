@@ -42,9 +42,10 @@ public class CustomerControllerImpl implements CustomerController {
             HttpServletRequest request,
             @RequestParam(required = false) List<String> fields,
             @RequestParam(defaultValue = "0") int offset,
-            @RequestParam(defaultValue = "20") int limit
+            @RequestParam(defaultValue = "20") int limit,
+            @RequestParam(required = false) String name
     ) {
-        List<CustomerDTO> customerDTOS = customerService.getCustomersWithPagination(fields, offset, limit);
+        List<CustomerDTO> customerDTOS = customerService.getCustomersWithPagination(fields, offset, limit, name);
         int count = customerDTOS.size();
 
         String baseUrl = request.getRequestURL().toString();

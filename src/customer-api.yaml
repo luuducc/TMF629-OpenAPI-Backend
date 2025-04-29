@@ -36,6 +36,12 @@ paths:
           schema:
             type: integer
             default: 20
+        - name: name
+          in: query
+          description: Filter customers by name (partial match, case insensitive).
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: Successfully get all customers

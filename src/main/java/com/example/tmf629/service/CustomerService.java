@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CustomerService {
     CustomerDTO createCustomer(CustomerDTO customerDTO);
-    List<CustomerDTO> getCustomersWithPagination(List<String> fields, int offset, int limit);
+    List<CustomerDTO> getCustomersWithPagination(List<String> fields, int offset, int limit, String name);
     CustomerDTO getCustomerById(String id, List<String> fields);
     CustomerDTO patchCustomerById(String id, CustomerDTO customerDTO);
     void deleteCustomerById(String id);
