@@ -175,6 +175,10 @@ components:
     # Customer
     CustomerRequest:
       type: object
+      required:
+        - '@type'
+        - name
+        - engagedParty
       properties:
         account:
           type: array
@@ -236,43 +240,51 @@ components:
           description: Indicates the concrete type of the customer entity.
           enum: [Customer]
     CustomerResponse:
-      allOf:
-        - $ref: '#/components/schemas/CustomerRequest'
-        - type: object
-          properties:
-            href:
-              type: string
-              description: Hyperlink reference to the customer resource.
-              example: http://localhost:8080/customerManagement/v1/customer/507f1f77bcf86cd799439011
-            id:
-              type: string
-              description: Unique identifier for the customer in MongoDB, represented in ObjectId format (24 hex characters).
-              pattern: '^[a-fA-F0-9]{24}$'
-              example: 507f1f77bcf86cd799439011
-            status:
-              type: string
-              description: Lifecycle status of the customer.
-              enum: [Created, Active, InActive, Suspended, Terminated, Pending]
-              example: Created
-            statusReason:
-              type: string
-              description: Provides additional context or explanation for the customer's current status.
-              enum:
-                - Customer not responding
-                - Payment overdue
-                - Exceeded usage limits
-                - Customer requested cancellation
-                - Contract expired
-                - Awaiting identity verification
-                - ...
-            '@baseType':
-              type: string
-              description: The base type of Customer object, in this case is PartyRole.
-              enum: [PartyRole]
-            '@schemaLocation':
-              type: string
-              description: A URI pointing to the location of the schema that describes the structure of this resource.
-              example: https://example.com/schemas/customer
+      type: object
+      properties:
+        total:
+          type: number
+          description: Total number of returned customers.
+          example: 10
+        items:
+          description: List of returned customers.
+          allOf:
+            - $ref: '#/components/schemas/CustomerRequest'
+            - type: object
+              properties:
+                href:
+                  type: string
+                  description: Hyperlink reference to the customer resource.
+                  example: http://localhost:8080/customerManagement/v1/customer/507f1f77bcf86cd799439011
+                id:
+                  type: string
+                  description: Unique identifier for the customer in MongoDB, represented in ObjectId format (24 hex characters).
+                  pattern: '^[a-fA-F0-9]{24}$'
+                  example: 507f1f77bcf86cd799439011
+                status:
+                  type: string
+                  description: Lifecycle status of the customer.
+                  enum: [ Created, Active, InActive, Suspended, Terminated, Pending ]
+                  example: Created
+                statusReason:
+                  type: string
+                  description: Provides additional context or explanation for the customer's current status.
+                  enum:
+                    - Customer not responding
+                    - Payment overdue
+                    - Exceeded usage limits
+                    - Customer requested cancellation
+                    - Contract expired
+                    - Awaiting identity verification
+                    - ...
+                '@baseType':
+                  type: string
+                  description: The base type of Customer object, in this case is PartyRole.
+                  enum: [ PartyRole ]
+                '@schemaLocation':
+                  type: string
+                  description: A URI pointing to the location of the schema that describes the structure of this resource.
+                  example: https://example.com/schemas/customer
 
     ## Customer's subtypes
     AccountRef:
@@ -391,6 +403,9 @@ components:
     PartyRef:
       type: object
       description: A Party reference.
+      required:
+        - '@type'
+        - id
       properties:
         href:
           type: string
