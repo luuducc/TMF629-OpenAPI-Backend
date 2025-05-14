@@ -14,6 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 
 @Data
 @SuperBuilder
@@ -31,6 +32,7 @@ public class PartyRole {
     @Id
     private String id;
 
+    @Indexed(unique = true)
     private String name;
     private PartyRoleSpecificationRef partyRoleSpecification;
     private PaymentMethodRef[] paymentMethod;

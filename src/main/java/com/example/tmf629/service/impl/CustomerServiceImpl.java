@@ -42,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDTO getCustomerById(String id, List<String> fields) {
         Customer customer = customerRepository.findById(id, fields);
         if (customer == null) {
-            throw new IDNotFoundException("ID " + id + " not found");
+            throw new IDNotFoundException(id);
         }
         return CustomerMapper.toDTO(customer);
     }
@@ -50,7 +50,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO patchCustomerById(String id, CustomerDTO dto) {
         if (!customerRepository.existsById(id)) {
-            throw new IDNotFoundException("ID " + id + " not exists");
+            throw new IDNotFoundException(id);
         }
         Customer customer = PatchCustomerMapper.toEntity(dto);
         Customer updatedCustomer = customerRepository.updateById(id, customer);
@@ -60,7 +60,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void deleteCustomerById(String id) {
         if (!customerRepository.existsById(id)) {
-            throw new IDNotFoundException("ID " + id + " not exists");
+            throw new IDNotFoundException(id);
         }
         customerRepository.deleteById(id);
     }

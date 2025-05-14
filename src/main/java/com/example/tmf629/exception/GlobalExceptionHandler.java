@@ -20,6 +20,20 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    @ExceptionHandler(DuplicateNameException.class)
+    public ResponseEntity<TmfErrorResponse> handleDuplicateName(DuplicateNameException ex) {
+        TmfErrorResponse response = TmfErrorResponse.builder()
+                .type("ConflictError")
+                .code("409")
+                .reason("Duplicate name")
+                .schemaLocation("https://example.com/error-schema")
+                .message(ex.getMessage())
+                .status("409")
+                .referenceError("https://example.com/errors/duplicate-name")
+                .build();
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+    }
+
     @ExceptionHandler(EmailAlreadyUsedException.class)
     public ResponseEntity<TmfErrorResponse> handleEmailAlreadyUsed(EmailAlreadyUsedException ex) {
         TmfErrorResponse response = TmfErrorResponse.builder()
@@ -29,7 +43,7 @@ public class GlobalExceptionHandler {
                 .schemaLocation("https://example.com/error-schema")
                 .message(ex.getMessage())
                 .status("409")
-                .referenceError("https://example.com/errors/not-found")
+                .referenceError("https://example.com/errors/duplicate-email")
                 .build();
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }

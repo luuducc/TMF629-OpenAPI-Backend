@@ -1,9 +1,11 @@
 package com.example.tmf629.respository.impl;
 
+import com.example.tmf629.exception.DuplicateNameException;
 import com.example.tmf629.model.party.Customer;
 import com.example.tmf629.respository.CustomerRepository;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -20,7 +22,16 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public Customer save(Customer customer) {
-        return mongoTemplate.insert(customer);
+        try {
+            return mongoTemplate.insert(customer);
+        } catch (Exception e) {
+            if (e instanceof DuplicateKeyException) {
+                System.out.println("go in to exception");
+                throw new DuplicateNameException(customer.getName());
+            }
+            System.out.println("Error: " + e.getMessage() + e.getClass().getName());
+            return new Customer();
+        }
     }
 
     @Override

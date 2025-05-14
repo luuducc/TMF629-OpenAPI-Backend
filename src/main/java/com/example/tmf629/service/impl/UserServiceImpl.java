@@ -23,9 +23,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO createUser(CreateUserDTO dto) {
         if (userRepository.existsByEmail(dto.email())) {
-            throw new EmailAlreadyUsedException(
-                    "Email " + dto.email() + " is already taken"
-            );
+            throw new EmailAlreadyUsedException(dto.email());
         }
         User createdUser = userRepository.save(CreateUserMapper.toEntity(dto));
         return UserMapper.toDTO(createdUser);
@@ -42,7 +40,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUserById(String id) {
         User user = userRepository.findById(id);
         if (user == null) {
-            throw new IDNotFoundException("ID " + id + " not found");
+            throw new IDNotFoundException(id);
         }
         return UserMapper.toDTO(user);
     }
@@ -51,12 +49,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO updateUserById(String id, UserDTO dto) {
         if (userRepository.existsByEmail(dto.email())) {
-            throw new EmailAlreadyUsedException(
-                    "Email " + dto.email() + " is already taken"
-            );
+            throw new EmailAlreadyUsedException(dto.email());
         }
         if (!userRepository.existsById(id)) {
-            throw new IDNotFoundException("ID " + id + " not found");
+            throw new IDNotFoundException(id);
         }
         User updatedUser = userRepository.updateById(id, UserMapper.toEntity(dto));
         return UserMapper.toDTO(updatedUser);
@@ -66,7 +62,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUserById(String id) {
         if (!userRepository.existsById(id)) {
-            throw new IDNotFoundException("ID " + id + " not found");
+            throw new IDNotFoundException(id);
         }
         userRepository.deleteById(id);
     }
