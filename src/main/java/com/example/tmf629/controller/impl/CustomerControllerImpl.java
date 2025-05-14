@@ -50,9 +50,7 @@ public class CustomerControllerImpl implements CustomerController {
         int count = customerDTOS.size();
 
         String baseUrl = request.getRequestURL().toString();
-        customerDTOS.forEach(customerDTO -> {
-            customerDTO.setHref(baseUrl + "/" + customerDTO.getId());
-        });
+        customerDTOS.forEach(customerDTO -> customerDTO.setHref(baseUrl + "/" + customerDTO.getId()));
         PageResponse<CustomerDTO> response = new PageResponse<>(count, customerDTOS);
         return ResponseEntity.ok(response);
     }
