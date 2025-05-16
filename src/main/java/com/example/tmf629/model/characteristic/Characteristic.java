@@ -1,5 +1,6 @@
 package com.example.tmf629.model.characteristic;
 
+import com.example.tmf629.model.enums.ValueType;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,7 +11,7 @@ public class Characteristic {
     private CharacteristicRelationship characteristicRelationship;
     private String id;
     private String name;
-    private String valueType;
+    private ValueType valueType;
 
     @Builder.Default
     private String baseType = "Characteristic";

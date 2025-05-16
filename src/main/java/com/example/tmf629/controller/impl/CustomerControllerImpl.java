@@ -72,7 +72,9 @@ public class CustomerControllerImpl implements CustomerController {
     @Override
     @PatchMapping("/{id}")
     public ResponseEntity<CustomerDTO> patchCustomer(
-            @PathVariable String id, @RequestBody CustomerDTO dto, HttpServletRequest request
+            @PathVariable String id,
+            @RequestBody @Valid CustomerDTO dto,
+            HttpServletRequest request
     ) {
         ValidationUtils.checkID(id);
         CustomerDTO updatedCustomerDto = customerService.patchCustomerById(id, dto);

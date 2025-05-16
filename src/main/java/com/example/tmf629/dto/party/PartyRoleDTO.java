@@ -35,6 +35,7 @@ public class PartyRoleDTO {
     @Valid // Cascades validation to nested object
     private AccountRefDTO[] account;
 
+    @Valid
     private AgreementRefDTO[] agreement;
     private CharacteristicDTO[] characteristic;
 

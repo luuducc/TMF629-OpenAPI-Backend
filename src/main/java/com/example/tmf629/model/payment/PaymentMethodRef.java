@@ -1,5 +1,6 @@
 package com.example.tmf629.model.payment;
 
+import com.example.tmf629.model.enums.PaymentMethodType;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,7 +14,7 @@ public class PaymentMethodRef {
     @Builder.Default
     private String baseType = "PaymentMethodRef";
 
-    private String referredType;
+    private PaymentMethodType referredType;
 
     @Builder.Default
     private String type = "PaymentMethodRef";

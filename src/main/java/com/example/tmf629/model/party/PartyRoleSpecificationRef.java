@@ -1,5 +1,6 @@
 package com.example.tmf629.model.party;
 
+import com.example.tmf629.model.enums.PartyRoleSpecificationType;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,7 +14,7 @@ public class PartyRoleSpecificationRef {
     @Builder.Default
     private String baseType = "PartyRoleSpecificationRef";
 
-    private String referredType;
+    private PartyRoleSpecificationType referredType;
 
     @Builder.Default
     private String type = "PartyRoleSpecificationRef";

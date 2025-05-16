@@ -1,5 +1,6 @@
 package com.example.tmf629.model.agreement;
 
+import com.example.tmf629.model.enums.AgreementType;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,7 +14,7 @@ public class AgreementRef {
     @Builder.Default
     private String baseType = "AgreementRef";
 
-    private String referredType;
+    private AgreementType referredType;
 
     @Builder.Default
     private String type = "AgreementRef";

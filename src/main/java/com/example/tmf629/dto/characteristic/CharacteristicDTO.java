@@ -1,5 +1,6 @@
 package com.example.tmf629.dto.characteristic;
 
+import com.example.tmf629.model.enums.ValueType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
@@ -13,7 +14,7 @@ public class CharacteristicDTO {
     private CharacteristicRelationshipDTO characteristicRelationship;
     private String id;
     private String name;
-    private String valueType;
+    private ValueType valueType;
 
     @JsonProperty("@baseType")
     private String baseType;

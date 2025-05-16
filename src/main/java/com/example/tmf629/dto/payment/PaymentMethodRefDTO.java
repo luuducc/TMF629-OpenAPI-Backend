@@ -1,5 +1,6 @@
 package com.example.tmf629.dto.payment;
 
+import com.example.tmf629.model.enums.PaymentMethodType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
@@ -16,7 +17,7 @@ public class PaymentMethodRefDTO {
     private String baseType;
 
     @JsonProperty("@referredType")
-    private String referredType;
+    private PaymentMethodType referredType;
 
     @JsonProperty("@type")
     private String type;

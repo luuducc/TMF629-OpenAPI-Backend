@@ -1,5 +1,6 @@
 package com.example.tmf629.model.characteristic;
 
+import com.example.tmf629.model.enums.RelationshipType;
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,7 +9,7 @@ import lombok.Data;
 public class CharacteristicRelationship {
     // schemaLocation
     private String id;
-    private String relationshipType;
+    private RelationshipType relationshipType;
 
     @Builder.Default
     private String baseType = "CharacteristicRelationship";
