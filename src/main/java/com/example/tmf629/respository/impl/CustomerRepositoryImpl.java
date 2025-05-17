@@ -94,12 +94,22 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         setIfNotNull(update, "statusReason", customer.getStatusReason());
         setIfNotNull(update, "validFor", customer.getValidFor());
 
-        UpdateResult result = mongoTemplate.updateFirst(query, update, Customer.class);
-
-        System.out.println("result: " + result.getModifiedCount());
-        System.out.println("result: " + result.getMatchedCount());
-
-        return mongoTemplate.findById(id, Customer.class);
+        try {
+            if (!update.getUpdateObject().isEmpty()) {
+                UpdateResult result = mongoTemplate.updateFirst(query, update, Customer.class);
+                System.out.println("result: " + result.getModifiedCount());
+                System.out.println("result: " + result.getMatchedCount());
+            } else {
+                System.out.println("update is null");
+            }
+            return mongoTemplate.findById(id, Customer.class);
+        } catch (Exception e) {
+            if (e instanceof DuplicateKeyException) {
+                throw new DuplicateNameException(customer.getName());
+            }
+            System.out.println("Error: " + e.getMessage() + e.getClass().getName());
+            return new Customer();
+        }
     }
 
     @Override
