@@ -26,6 +26,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
             return mongoTemplate.insert(customer);
         } catch (Exception e) {
             if (e instanceof DuplicateKeyException) {
+                // can miss cases here
                 System.out.println("go in to exception");
                 throw new DuplicateNameException(customer.getName());
             }

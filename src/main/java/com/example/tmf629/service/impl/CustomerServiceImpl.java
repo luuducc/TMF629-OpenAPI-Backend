@@ -28,6 +28,9 @@ public class CustomerServiceImpl implements CustomerService {
         // Set status to Created
         dto.setStatus(StatusType.Created);
 
+        // Remove id field from dto if exists
+        dto.setId(null);
+
         Customer customer = customerRepository.save(CustomerMapper.toEntity(dto));
         return CustomerMapper.toDTO(customer);
     }
