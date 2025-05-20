@@ -4,14 +4,14 @@ import com.example.tmf629.utils.ValidTimePeriod;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Data
 @ValidTimePeriod
 public class TimePeriod {
     @NotNull(message = "Field 'startDateTime' is required")
-    private LocalDateTime startDateTime;
+    private Instant startDateTime;
 
     @NotNull(message = "Field 'endDateTime' is required")
-    private LocalDateTime endDateTime;
+    private Instant endDateTime;
 }

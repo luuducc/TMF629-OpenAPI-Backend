@@ -7,13 +7,13 @@ import jakarta.validation.Valid;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.time.Instant;
 
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CreditProfileDTO {
-    private LocalDate creditProfileDate;
+    private Instant creditProfileDate;
 
     private int creditRiskRating;
     private int creditScore;
