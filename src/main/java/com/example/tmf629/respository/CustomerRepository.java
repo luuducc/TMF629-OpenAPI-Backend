@@ -12,4 +12,5 @@ public interface CustomerRepository {
     Customer updateById(String id, Customer customer);
     void deleteById(String id);
     boolean existsById(String id);
+    long countDocuments();
 }

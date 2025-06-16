@@ -9,5 +9,6 @@ public interface CustomerService {
     List<CustomerDTO> getCustomersWithPagination(List<String> fields, int offset, int limit, String name);
     CustomerDTO getCustomerById(String id, List<String> fields);
     CustomerDTO patchCustomerById(String id, CustomerDTO customerDTO);
+    long getCustomerCount();
     void deleteCustomerById(String id);
 }

@@ -3,6 +3,7 @@ package com.example.tmf629.controller.impl;
 import com.example.tmf629.controller.CustomerController;
 import com.example.tmf629.dto.party.CustomerDTO;
 import com.example.tmf629.pagination.PageResponse;
+import com.example.tmf629.pagination.PaginationMeta;
 import com.example.tmf629.service.CustomerService;
 import com.example.tmf629.utils.ValidationUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -46,11 +47,14 @@ public class CustomerControllerImpl implements CustomerController {
             @RequestParam(required = false) String name
     ) {
         List<CustomerDTO> customerDTOS = customerService.getCustomersWithPagination(fields, offset, limit, name);
-        int count = customerDTOS.size();
+        int pageCount = customerDTOS.size();
+        long total = customerService.getCustomerCount();
+
+        PaginationMeta paginationMeta = new PaginationMeta(total, pageCount, offset);
 
         String baseUrl = request.getRequestURL().toString();
         customerDTOS.forEach(customerDTO -> customerDTO.setHref(baseUrl + "/" + customerDTO.getId()));
-        PageResponse<CustomerDTO> response = new PageResponse<>(count, customerDTOS);
+        PageResponse<CustomerDTO> response = new PageResponse<>(paginationMeta, customerDTOS);
         return ResponseEntity.ok(response);
     }
 

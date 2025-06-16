@@ -125,6 +125,11 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return mongoTemplate.exists(query, Customer.class);
     }
 
+    @Override
+    public long countDocuments() {
+        return mongoTemplate.estimatedCount(Customer.class);
+    }
+
     // Helper methods
     private <T> void setIfNotNull(Update update, String fieldName, T value) {
         if (value != null) {

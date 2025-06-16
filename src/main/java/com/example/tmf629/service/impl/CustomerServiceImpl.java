@@ -37,6 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerDTO> getCustomersWithPagination(List<String> fields, int offset, int limit, String name) {
+
         return customerRepository.findWithFilter(fields, offset, limit, name).stream()
                 .map(CustomerMapper::toDTO).collect(Collectors.toList());
     }
@@ -58,6 +59,11 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = PatchCustomerMapper.toEntity(dto);
         Customer updatedCustomer = customerRepository.updateById(id, customer);
         return CustomerMapper.toDTO(updatedCustomer);
+    }
+
+    @Override
+    public long getCustomerCount() {
+        return customerRepository.countDocuments();
     }
 
     @Override
