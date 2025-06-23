@@ -6,6 +6,7 @@ import com.example.tmf629.exception.IDNotFoundException;
 import com.example.tmf629.mapper.party.CustomerMapper;
 import com.example.tmf629.mapper.party.PatchCustomerMapper;
 import com.example.tmf629.model.party.Customer;
+import com.example.tmf629.pagination.LiveSearchResult;
 import com.example.tmf629.respository.CustomerRepository;
 import com.example.tmf629.service.CustomerService;
 import com.example.tmf629.utils.ValidationUtils;
@@ -72,5 +73,12 @@ public class CustomerServiceImpl implements CustomerService {
             throw new IDNotFoundException(id);
         }
         customerRepository.deleteById(id);
+    }
+
+    @Override
+    public LiveSearchResult<CustomerDTO> liveSearchCustomers(String keyword, int offset, int limit, String status, String party, String name, String sort) {
+        LiveSearchResult<Customer> result = customerRepository.liveSearch(keyword, offset, limit, status, party, name, sort);
+        List<CustomerDTO> customerDTOs=  result.items().stream().map(CustomerMapper::toDTO).toList();
+        return new LiveSearchResult<>(result.total(), customerDTOs);
     }
 }

@@ -2,16 +2,19 @@ package com.example.tmf629.respository.impl;
 
 import com.example.tmf629.exception.DuplicateNameException;
 import com.example.tmf629.model.party.Customer;
+import com.example.tmf629.pagination.LiveSearchResult;
 import com.example.tmf629.respository.CustomerRepository;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -87,7 +90,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         setIfNotNull(update, "description", customer.getDescription());
         setIfNotNull(update, "engagedParty", customer.getEngagedParty());
         setIfNotNull(update, "name", customer.getName());
-        setIfNotNull(update, "partyRoleSpecification", customer.getPartyRoleSpecification ());
+        setIfNotNull(update, "partyRoleSpecification", customer.getPartyRoleSpecification());
         setIfNotNull(update, "paymentMethod", customer.getPaymentMethod());
         setIfNotNull(update, "relatedParty", customer.getRelatedParty());
         setIfNotNull(update, "role", customer.getRole());
@@ -130,10 +133,72 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return mongoTemplate.estimatedCount(Customer.class);
     }
 
+    @Override
+    public LiveSearchResult<Customer> liveSearch(String keyword, int offset, int limit, String status, String party, String name, String sort) {
+//        if (keyword == null || keyword.isEmpty()) {
+//            return new LiveSearchResult<>(0, Collections.emptyList());
+//        }
+        // Create a case-insensitive regex pattern
+        Pattern regex = Pattern.compile(".*" + Pattern.quote(keyword) + ".*", Pattern.CASE_INSENSITIVE);
+
+        Criteria criteria = new Criteria().orOperator(
+                Criteria.where("status").regex(regex),
+                Criteria.where("name").regex(regex),
+                Criteria.where("description").regex(regex),
+                Criteria.where("engagedParty.referredType").regex(regex)
+        );
+
+        if (status != null && !status.isEmpty()) {
+            criteria.and("status").is(status);
+        }
+        if (party != null && !party.isEmpty()) {
+            criteria.and("engagedParty.referredType").is(party);
+        }
+        if (name != null && !name.isEmpty()) {
+            criteria.and("name").regex(".*" + Pattern.quote(name) + ".*", "i");
+        }
+
+        Query query = new Query(criteria);
+
+        if (sort != null && !sort.isEmpty()) {
+            List<Sort.Order> orders = getOrders(sort);
+            if (!orders.isEmpty()) {
+                query.with(Sort.by(orders));
+            }
+        }
+
+        long total = mongoTemplate.count(query, Customer.class);
+
+        query.fields()
+                .include("name")
+                .include("status")
+                .include("engagedParty.referredType")
+                .include("description")
+                .include("_id");
+        query.skip(offset).limit(limit);
+
+        return new LiveSearchResult<>(total, mongoTemplate.find(query, Customer.class));
+    }
+
     // Helper methods
     private <T> void setIfNotNull(Update update, String fieldName, T value) {
         if (value != null) {
             update.set(fieldName, value);
         }
+    }
+
+    private List<Sort.Order> getOrders(String sortParams) {
+        List<Sort.Order> orders = new ArrayList<>();
+
+        for (String order : sortParams.split(",")) {
+            if (order.isEmpty()) continue;
+
+            if (order.startsWith("-")) {
+                orders.add(Sort.Order.desc(order.substring(1)));
+            } else {
+                orders.add(Sort.Order.asc(order));
+            }
+        }
+        return orders;
     }
 }

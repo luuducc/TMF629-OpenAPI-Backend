@@ -1,6 +1,7 @@
 package com.example.tmf629.respository;
 
 import com.example.tmf629.model.party.Customer;
+import com.example.tmf629.pagination.LiveSearchResult;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface CustomerRepository {
     void deleteById(String id);
     boolean existsById(String id);
     long countDocuments();
+    LiveSearchResult<Customer> liveSearch(String keyword, int offset, int limit, String status, String party, String name, String sort);
 }

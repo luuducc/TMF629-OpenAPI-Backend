@@ -2,6 +2,7 @@ package com.example.tmf629.controller.impl;
 
 import com.example.tmf629.controller.CustomerController;
 import com.example.tmf629.dto.party.CustomerDTO;
+import com.example.tmf629.pagination.LiveSearchResult;
 import com.example.tmf629.pagination.PageResponse;
 import com.example.tmf629.pagination.PaginationMeta;
 import com.example.tmf629.service.CustomerService;
@@ -36,27 +37,27 @@ public class CustomerControllerImpl implements CustomerController {
         return ResponseEntity.created(URI.create(href)).body(createdUser);
     }
 
-    // Get customer with pagination
-    @Override
-    @GetMapping
-    public ResponseEntity<PageResponse<CustomerDTO>> getCustomersWithPagination(
-            HttpServletRequest request,
-            @RequestParam(required = false) List<String> fields,
-            @RequestParam(defaultValue = "0") int offset,
-            @RequestParam(defaultValue = "20") int limit,
-            @RequestParam(required = false) String name
-    ) {
-        List<CustomerDTO> customerDTOS = customerService.getCustomersWithPagination(fields, offset, limit, name);
-        int pageCount = customerDTOS.size();
-        long total = customerService.getCustomerCount();
-
-        PaginationMeta paginationMeta = new PaginationMeta(total, pageCount, offset);
-
-        String baseUrl = request.getRequestURL().toString();
-        customerDTOS.forEach(customerDTO -> customerDTO.setHref(baseUrl + "/" + customerDTO.getId()));
-        PageResponse<CustomerDTO> response = new PageResponse<>(paginationMeta, customerDTOS);
-        return ResponseEntity.ok(response);
-    }
+    // Get customers with pagination
+//    @Override
+//    @GetMapping
+//    public ResponseEntity<PageResponse<CustomerDTO>> getCustomersWithPagination(
+//            HttpServletRequest request,
+//            @RequestParam(required = false) List<String> fields,
+//            @RequestParam(defaultValue = "0") int offset,
+//            @RequestParam(defaultValue = "20") int limit,
+//            @RequestParam(required = false) String name
+//    ) {
+//        List<CustomerDTO> customerDTOS = customerService.getCustomersWithPagination(fields, offset, limit, name);
+//        int pageCount = customerDTOS.size();
+//        long total = customerService.getCustomerCount();
+//
+//        PaginationMeta paginationMeta = new PaginationMeta(total, pageCount, offset);
+//
+//        String baseUrl = request.getRequestURL().toString();
+//        customerDTOS.forEach(customerDTO -> customerDTO.setHref(baseUrl + "/" + customerDTO.getId()));
+//        PageResponse<CustomerDTO> response = new PageResponse<>(paginationMeta, customerDTOS);
+//        return ResponseEntity.ok(response);
+//    }
 
     // Get customer by ID
     @Override
@@ -92,5 +93,23 @@ public class CustomerControllerImpl implements CustomerController {
         ValidationUtils.checkID(id);
         customerService.deleteCustomerById(id);
         return ResponseEntity.noContent().build(); // 204 status code
+    }
+
+    // Live search
+    @Override
+    @GetMapping
+    public ResponseEntity<PageResponse<CustomerDTO>> searchCustomer(
+            @RequestParam("search") String keyword,
+            @RequestParam(defaultValue = "0") int offset,
+            @RequestParam(defaultValue = "20") int limit,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String party,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String sort
+    ) {
+        System.out.println("go to here");
+        LiveSearchResult<CustomerDTO> searchResult = customerService.liveSearchCustomers(keyword, offset, limit, status, party, name, sort);
+        PaginationMeta paginationMeta = new PaginationMeta(searchResult.total(), searchResult.items().size(), offset);
+        return ResponseEntity.ok(new PageResponse<>(paginationMeta, searchResult.items()));
     }
 }
